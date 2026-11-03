@@ -296,8 +296,11 @@ em { font-style: italic; }
 .kicker-sep { width: 48px; height: 1px; background: var(--hair); }
 
 .hero-grid { display: grid; gap: clamp(2rem, 4vh, 2.8rem); max-width: 1260px; }
-@media (min-width: 1280px) {
-  .hero-grid { grid-template-columns: minmax(0, 1fr) 360px; align-items: end; gap: 3rem; }
+@media (min-width: 1260px) {
+  .hero-grid { grid-template-columns: minmax(0, 1fr) 400px; align-items: end; gap: 3rem; }
+}
+@media (min-width: 1440px) {
+  .hero-grid { grid-template-columns: minmax(0, 1fr) 470px; }
 }
 
 .motto {
@@ -315,7 +318,7 @@ em { font-style: italic; }
   background: var(--gold-text); -webkit-background-clip: text; background-clip: text; color: transparent;
 }
 
-.hero-sub { color: #a9b2c0; font-size: 1.06rem; line-height: 1.6; max-width: 40ch; margin-bottom: 1.8rem; }
+.hero-sub { color: var(--ivoire); font-size: clamp(1.35rem, 1.75vw, 1.75rem); line-height: 1.45; max-width: 30ch; margin-bottom: 2.2rem; }
 .hero-actions { display: grid; justify-items: start; gap: .6rem; }
 .cta {
   position: relative; overflow: hidden; isolation: isolate;
@@ -393,7 +396,7 @@ em { font-style: italic; }
   .motto .line:nth-child(2) { padding-left: .5em; }
   .motto .line:nth-child(3) { padding-left: 0; }
   .motto .line:nth-child(4) { padding-left: .5em; }
-  .hero-sub { font-size: 1rem; margin-bottom: 1.4rem; }
+  .hero-sub { font-size: 1.25rem; margin-bottom: 1.6rem; }
   .hero-actions { justify-items: stretch; }
   .cta { justify-content: space-between; letter-spacing: .13em; font-size: .68rem; padding: 0 1.1rem 0 1.2rem; gap: .8rem; }
   .cta i { width: 24px; }
@@ -1190,3 +1193,8 @@ em { font-style: italic; }
 
 /* keyboard users never land on something still invisible */
 .js [data-reveal]:focus-within, .js [data-hero]:focus-within { opacity: 1; transform: none; transition-delay: 0s; }
+
+/* hero side column: larger button and phone line */
+.prologue .cta { font-size: 1.2rem; min-height: 68px; padding: 0 1.8rem 0 2rem; }
+.prologue .cta-alt { font-size: 1.25rem; color: #b9c0cc; }
+@media (max-width: 760px) { .prologue .cta { font-size: 1.08rem; min-height: 60px; } .prologue .cta-alt { font-size: 1.1rem; } }
