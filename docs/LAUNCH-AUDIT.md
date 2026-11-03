@@ -17,7 +17,7 @@ The visual and storytelling audit is in [AUDIT.md](AUDIT.md) and the motion spec
 
 | Metric (mobile) | Before | After |
 |---|---|---|
-| Lighthouse performance | 86 – 98 | **95 – 97** |
+| Lighthouse performance | 86 – 98 | **95 – 97** (local) · **100** (live) |
 | Lighthouse accessibility | 85 – 94 | **100** |
 | Lighthouse best practices | 100 | **100** |
 | Lighthouse SEO | 100 | **100** |
@@ -28,7 +28,27 @@ The visual and storytelling audit is in [AUDIT.md](AUDIT.md) and the motion spec
 | Security headers | HSTS only | **CSP, nosniff, frame-blocking, referrer, permissions, COOP** |
 | Third-party requests per page | 2 (Google Fonts) | **0** |
 
-The "after" Lighthouse runs used a local server with the production headers. Run them again on the live URL after deploying (see the checklist).
+### Live re-test after deploy (3 November 2026)
+
+| Page (live URL) | Perf | A11y | Best pr. | SEO | FCP | LCP | CLS | TBT |
+|---|---|---|---|---|---|---|---|---|
+| Home, mobile | 100 | 100 | 100 | 100 | 1.0s | 1.8s | 0 | 10ms |
+| Home, desktop | 100 | 100 | 100 | 100 | 0.3s | 0.4s | 0 | 0ms |
+| Entreprises, mobile | 100 | 100 | 100 | 100 | 1.1s | 1.7s | 0 | 0ms |
+| Contact, mobile | 100 | 100 | 100 | 100 | 1.1s | 1.7s | 0 | 0ms |
+| Article, mobile | 100 | 100 | 100 | 100 | 1.1s | 1.8s | 0 | 10ms |
+| Particuliers, Cabinet, Journal, Questions | — | 100 | — | 100 | | | | |
+| Mentions légales | — | 100 | — | 69 | | | | |
+
+The legal notice scores 69 for SEO **on purpose**: it is marked `noindex`, which Lighthouse counts as "not crawlable".
+
+Also checked live:
+- All security and cache headers are present.
+- All 11 pages, the sitemap, robots file and social card return 200; unknown URLs return 404.
+- `/entreprises` redirects (308) to `/entreprises/`.
+- Pages run with no console errors and no third-party requests under the security policy.
+
+**Found during the live re-test:** the internal documents in `docs/` were publicly reachable (for example `/docs/AUDIT.md`). Fixed with a `.vercelignore` that keeps `docs/` and `README.md` out of every deployment (issue 18 below). This takes effect on the next deploy.
 
 ---
 
@@ -60,6 +80,7 @@ Severity levels:
 | 14 | Low | Accessibility | Focus ring 1px thin; anchor targets could slide under the fixed header | Hard to see focus; hidden headings | 2px ring; `scroll-padding-top: 88px` | Visual check |
 | 15 | Low | Accessibility | A sidebar landmark (`aside`) nested inside a section | Confusing landmark navigation | Plain `div` | axe |
 | 16 | Low | Mobile | Content could sit under the iPhone home indicator | Dock partly hidden on newer iPhones | `viewport-fit=cover` with a safe-area inset on the dock | Code review |
+| 18 | Medium | Security | Internal audit documents in `docs/` were served publicly | Anyone could read internal notes and open items | `.vercelignore` excludes `docs/` and `README.md` from deployments | Live URL check after the next deploy |
 | 17 | Low | Legal | The legal notice still said fonts came from Google | Inaccurate privacy statement | Updated: no cookies, no external resources | Text check |
 
 ### Open: needs a decision or the client
@@ -121,7 +142,7 @@ Severity levels:
 - [x] Lighthouse mobile ≥ 95 on the home, a service page, an article and contact (local run)
 - [x] CLS 0, LCP ≤ 2.5s, TBT ≤ 150ms
 - [x] Hero animation pauses off screen and in background tabs
-- [ ] Re-run Lighthouse on the **live** URL after deploying
+- [x] Re-run Lighthouse on the **live** URL after deploying
 
 ### Accessibility
 - [x] axe: 0 violations, 10 pages × 2 widths
@@ -158,10 +179,10 @@ Severity levels:
 - [x] HTTPS with HSTS (Vercel)
 - [x] CSP, frame blocking, nosniff, referrer and permissions policies
 - [x] No third-party scripts, no cookies, no stored personal data
-- [ ] After deploy: check the live headers with `curl -I https://manusecurite.vercel.app/`
+- [x] After deploy: check the live headers with `curl -I https://manusecurite.vercel.app/`
 
 ### Deployment
 - [x] Every push to `main` deploys automatically on Vercel
 - [x] `vercel.json` committed (headers, cache, trailing slashes)
-- [ ] After deploy: open every page once, check the console, re-run Lighthouse
+- [x] After deploy: open every page once, check the console, re-run Lighthouse
 - [ ] Complete the legal notice (open issue A): **do not announce the site before this**
