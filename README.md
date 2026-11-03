@@ -2,6 +2,8 @@
 
 Site vitrine (une page, en français) du Cabinet Thorelle Conseils — Risk & Management, accompagnement de sûreté.
 
+Direction artistique : voir `docs/DIRECTION-CREATIVE.md` (« La Veille »).
+
 Site statique : `index.html`, `styles.css`, `script.js`, `assets/`. Aucun build.
 
 ## Aperçu local
