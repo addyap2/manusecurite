@@ -314,34 +314,74 @@
     if (document.fonts && document.fonts.ready) document.fonts.ready.then(layout);
   }
 
-  /* ---------- Contact ---------- */
-  var form = document.getElementById('contact-form');
-  document.querySelectorAll('[data-profil]').forEach(function (a) {
-    a.addEventListener('click', function () {
-      var radio = form.querySelector('input[value="' + a.dataset.profil + '"]');
-      if (radio) radio.checked = true;
+  /* ---------- Menu ---------- */
+  var menuBtn = document.querySelector('.menu-btn');
+  var menu = document.getElementById('menu');
+  if (menuBtn && menu) {
+    var lastFocus = null;
+    var setMenu = function (open) {
+      root.classList.toggle('menu-open', open);
+      menuBtn.setAttribute('aria-expanded', String(open));
+      menuBtn.querySelector('.menu-label').textContent = open ? 'Fermer' : 'Menu';
+      menu.setAttribute('aria-hidden', String(!open));
+      if (open) {
+        lastFocus = document.activeElement;
+        var first = menu.querySelector('a');
+        setTimeout(function () { if (first) first.focus(); }, 50);
+      } else if (lastFocus) {
+        lastFocus.focus();
+      }
+    };
+    menuBtn.addEventListener('click', function () { setMenu(!root.classList.contains('menu-open')); });
+    menu.addEventListener('click', function (e) { if (e.target.closest('a')) setMenu(false); });
+    document.addEventListener('keydown', function (e) {
+      if (!root.classList.contains('menu-open')) return;
+      if (e.key === 'Escape') { setMenu(false); return; }
+      if (e.key === 'Tab') {
+        // keep focus inside the menu (the button stays reachable to close it)
+        var items = [menuBtn].concat(Array.prototype.slice.call(menu.querySelectorAll('a')));
+        var i = items.indexOf(document.activeElement);
+        if (e.shiftKey && i <= 0) { e.preventDefault(); items[items.length - 1].focus(); }
+        else if (!e.shiftKey && i === items.length - 1) { e.preventDefault(); items[0].focus(); }
+      }
     });
-  });
+  }
 
-  var errorEl = form.querySelector('.form-error');
-  form.addEventListener('submit', function (e) {
-    e.preventDefault();
-    var nom = form.nom.value.trim();
-    var coord = form.coord.value.trim();
-    form.nom.setAttribute('aria-invalid', String(!nom));
-    form.coord.setAttribute('aria-invalid', String(!coord));
-    if (!nom || !coord) {
-      errorEl.hidden = false;
-      (nom ? form.coord : form.nom).focus();
-      return;
+  /* ---------- Contact form (home and /contact/) ---------- */
+  var form = document.getElementById('contact-form');
+  if (form) {
+    document.querySelectorAll('[data-profil]').forEach(function (a) {
+      a.addEventListener('click', function () {
+        var radio = form.querySelector('input[value="' + a.dataset.profil + '"]');
+        if (radio) radio.checked = true;
+      });
+    });
+    var params = new URLSearchParams(location.search);
+    if (params.get('profil')) {
+      var pre = form.querySelector('input[value="' + params.get('profil') + '"]');
+      if (pre) pre.checked = true;
     }
-    errorEl.hidden = true;
-    var profil = form.querySelector('input[name="profil"]:checked').value;
-    var subject = 'Demande de contact (' + profil + ') : ' + nom;
-    var body = 'Nom : ' + nom + '\nProfil : ' + profil + '\nContact : ' + coord + '\n\n' + form.message.value.trim();
-    window.location.href = 'mailto:providencecotedazur@gmail.com?subject=' +
-      encodeURIComponent(subject) + '&body=' + encodeURIComponent(body);
-  });
+
+    var errorEl = form.querySelector('.form-error');
+    form.addEventListener('submit', function (e) {
+      e.preventDefault();
+      var nom = form.nom.value.trim();
+      var coord = form.coord.value.trim();
+      form.nom.setAttribute('aria-invalid', String(!nom));
+      form.coord.setAttribute('aria-invalid', String(!coord));
+      if (!nom || !coord) {
+        errorEl.hidden = false;
+        (nom ? form.coord : form.nom).focus();
+        return;
+      }
+      errorEl.hidden = true;
+      var profil = form.querySelector('input[name="profil"]:checked').value;
+      var subject = 'Demande de contact (' + profil + ') : ' + nom;
+      var body = 'Nom : ' + nom + '\nProfil : ' + profil + '\nContact : ' + coord + '\n\n' + form.message.value.trim();
+      window.location.href = 'mailto:providencecotedazur@gmail.com?subject=' +
+        encodeURIComponent(subject) + '&body=' + encodeURIComponent(body);
+    });
+  }
 
   var year = document.getElementById('year');
   if (year) year.textContent = new Date().getFullYear();
