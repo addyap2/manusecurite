@@ -66,7 +66,7 @@ Defined on `:root` in `styles.css`.
 | 0.6s | The ridge line draws | stroke-dashoffset | 3s, `--ease` |
 | 0.8s | Beam rises and starts sweeping | JS: opacity 0→1 between 0.8s and 2.3s | smoothstep |
 | 0.7s | Small label above the headline | opacity + rise | `--dur-reveal` |
-| 0.9–1.36s | Headline, line by line from a mask | translateY 108%→0 | `--dur-cinematic`, 120ms steps |
+| 0.55–1.0s | Headline, line by line from a mask | translateY 108%→0 | `--dur-cinematic`, 120ms steps |
 | 1.7s | Subheadline | opacity + rise | `--dur-reveal` |
 | 1.85s | Buttons | opacity + rise | `--dur-reveal` |
 | 2.2s | Bottom bar (quick links, scroll cue) | opacity + rise | `--dur-reveal` |
@@ -79,10 +79,10 @@ Defined on `:root` in `styles.css`.
 | 0 | Header is already there (it never moves between pages) |
 | 120ms | The lamp at the bottom of the hero ignites (same flicker as the home page, smaller) |
 | 150ms | Breadcrumbs fade in |
-| 300ms + 55ms per word | Title rises word by word from a mask |
+| 120ms + 55ms per word | Title rises word by word from a mask |
 | 400ms | Beam fades in over 1.8s |
-| 820ms | Intro (or article meta) |
-| 980ms | Buttons |
+| 640ms | Intro (or article meta) |
+| 800ms | Buttons |
 
 ### 3.3 Page transitions: "through the night"
 

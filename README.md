@@ -15,7 +15,7 @@ Site statique, sans build. Pages :
 | `/mentions-legales/` | `mentions-legales/index.html` |
 | page introuvable | `404.html` |
 
-Styles communs : `styles.css`. Script commun : `script.js`. L'en-tête, le menu et le pied de page sont répétés dans chaque page : les modifier partout.
+Styles communs : `styles.css`. Script commun : `script.js`. Polices hébergées dans `fonts/`. En-têtes de sécurité et cache : `vercel.json`. L'en-tête, le menu et le pied de page sont répétés dans chaque page : les modifier partout.
 
 ### Ajouter un article au journal
 
@@ -36,6 +36,9 @@ Puis ouvrir http://localhost:4321.
 Fonctionne tel quel sur Vercel, Netlify ou GitHub Pages (dossier racine).
 
 ## À compléter avant la mise en ligne
+
+Voir la checklist complète dans `docs/LAUNCH-AUDIT.md`.
+
 
 - [ ] Compléter `mentions-legales/index.html` (forme juridique, SIRET, adresse, CNAPS si applicable)
 - [ ] Faire relire les articles du journal et les réponses de la FAQ par Emmanuel Thorelle

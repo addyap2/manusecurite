@@ -1,3 +1,9 @@
+/* Self-hosted fonts (SIL Open Font License), latin subset */
+@font-face { font-family: "Cinzel"; font-style: normal; font-weight: 500 600; font-display: swap; src: url("/fonts/cinzel.woff2") format("woff2"); unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD; }
+@font-face { font-family: "Cormorant"; font-style: normal; font-weight: 300 400; font-display: swap; src: url("/fonts/cormorant.woff2") format("woff2"); unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD; }
+@font-face { font-family: "Cormorant"; font-style: italic; font-weight: 300 400; font-display: swap; src: url("/fonts/cormorant-italic.woff2") format("woff2"); unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD; }
+@font-face { font-family: "Hanken Grotesk"; font-style: normal; font-weight: 400 600; font-display: swap; src: url("/fonts/hanken-grotesk.woff2") format("woff2"); unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD; }
+
 /* =========================================================
    LA VEILLE — Cabinet Thorelle Conseils
    One night of watch over the coast, from dusk to dawn.
@@ -47,7 +53,7 @@
 }
 
 *, *::before, *::after { box-sizing: border-box; }
-html { -webkit-text-size-adjust: 100%; scroll-behavior: smooth; }
+html { -webkit-text-size-adjust: 100%; scroll-behavior: smooth; scroll-padding-top: 88px; }
 body {
   margin: 0;
   background: var(--nuit);
@@ -65,7 +71,7 @@ h1, h2, h3, p { margin: 0; }
 ol, ul { margin: 0; padding: 0; list-style: none; }
 em { font-style: italic; }
 ::selection { background: var(--or); color: var(--nuit); }
-:focus-visible { outline: 1px solid var(--or-pale); outline-offset: 4px; }
+:focus-visible { outline: 2px solid var(--or-pale); outline-offset: 4px; border-radius: 1px; }
 
 .skip {
   position: fixed; left: 1rem; top: -4rem; z-index: 200;
@@ -394,7 +400,6 @@ em { font-style: italic; }
   .prologue-bar { bottom: calc(var(--lamp-y) + 44px); }
   .quick { gap: 1.4rem; }
   .reassure { display: none; }
-  .scroll-cue span { display: none; }
   .ridge { top: -39px; height: 40px; }
 }
 
@@ -438,7 +443,7 @@ em { font-style: italic; }
   max-width: 24ch; color: var(--ivoire);
 }
 .manifesto em { color: var(--or-pale); }
-.manifesto .w { opacity: var(--o, .16); transition: opacity .25s linear; }
+.manifesto .w { opacity: var(--o, .42); transition: opacity .25s linear; }
 .signature {
   display: flex; flex-direction: column; gap: .2rem;
   padding-left: 1.4rem; border-left: 1px solid var(--or);
@@ -552,7 +557,7 @@ em { font-style: italic; }
   color: var(--ivoire);
 }
 .js .litany li {
-  opacity: calc(.1 + var(--lit, 0) * .9);
+  opacity: calc(.42 + var(--lit, 0) * .58);
   transform: scale(calc(.94 + var(--lit, 0) * .06));
   will-change: opacity, transform;
 }
@@ -674,10 +679,10 @@ em { font-style: italic; }
 
 .js .motto .line > span { transform: translate3d(0, 108%, 0); }
 .js.is-ready .motto .line > span { transform: none; transition: transform var(--dur-cinematic) var(--ease); }
-.js.is-ready .motto .line:nth-child(1) > span { transition-delay: .9s; }
-.js.is-ready .motto .line:nth-child(2) > span { transition-delay: 1.02s; }
-.js.is-ready .motto .line:nth-child(3) > span { transition-delay: 1.24s; }
-.js.is-ready .motto .line:nth-child(4) > span { transition-delay: 1.36s; }
+.js.is-ready .motto .line:nth-child(1) > span { transition-delay: .55s; }
+.js.is-ready .motto .line:nth-child(2) > span { transition-delay: .67s; }
+.js.is-ready .motto .line:nth-child(3) > span { transition-delay: .89s; }
+.js.is-ready .motto .line:nth-child(4) > span { transition-delay: 1.01s; }
 .js [data-hero] { opacity: 0; transform: translate3d(0, 16px, 0); }
 .js.is-ready [data-hero] { opacity: 1; transform: none; transition: opacity var(--dur-reveal) var(--ease), transform var(--dur-cinematic) var(--ease); }
 .js.is-ready .kicker[data-hero] { transition-delay: .7s; }
@@ -718,7 +723,7 @@ em { font-style: italic; }
 .menu-btn:hover .menu-lines i:last-child { width: 26px; }
 .menu-open .menu-lines i:first-child { top: 4px; transform: rotate(35deg); }
 .menu-open .menu-lines i:last-child { top: 4px; width: 26px; transform: rotate(-35deg); }
-@media (max-width: 640px) { .menu-label { display: none; } .bridge-cta { display: none; } }
+@media (max-width: 640px) { .menu-label { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; } .bridge-cta { display: none; } }
 
 .menu {
   position: fixed; inset: 0; z-index: 45;
@@ -983,10 +988,10 @@ em { font-style: italic; }
 .js.is-ready .page-hero::before { opacity: 1; }
 .page-hero::before { translate: 0 calc(var(--py, 0) * 0.22px); }       /* beam parallax */
 .js .page-hero .crumbs { transition-delay: 150ms; }
-.page-hero .page-title { --split-delay: 300ms; }
+.page-hero .page-title { --split-delay: 120ms; }
 .js .page-hero .page-intro,
-.js .page-hero .article-meta { transition-delay: 820ms; }
-.js .page-hero .hero-actions { transition-delay: 980ms; }
+.js .page-hero .article-meta { transition-delay: 640ms; }
+.js .page-hero .hero-actions { transition-delay: 800ms; }
 
 /* ---- 3. Word-mask title reveals ([data-split]) ---- */
 .wm { display: inline-block; overflow: hidden; vertical-align: top; padding: .14em 0 .1em; margin: -.14em 0 -.1em; }
@@ -1024,9 +1029,13 @@ em { font-style: italic; }
   }
   .session.pin .score li {
     min-height: 54vh; display: flex; flex-direction: column; justify-content: center; padding: 0 0 0 3rem;
-    opacity: .22; transition: opacity var(--dur-slow) var(--ease-soft), transform var(--dur-cinematic) var(--ease);
+    transition: opacity var(--dur-slow) var(--ease-soft), transform var(--dur-cinematic) var(--ease);
   }
-  .session.pin .score li.on { opacity: 1; }
+  .session.pin .score li h3, .session.pin .score li .score-mark { color: var(--brume); transition: color var(--dur-slow) var(--ease-soft); }
+  .session.pin .score li p { color: #7a8395; transition: color var(--dur-slow) var(--ease-soft); }
+  .session.pin .score li.on h3 { color: var(--ivoire); }
+  .session.pin .score li.on .score-mark { color: var(--or); }
+  .session.pin .score li.on p { color: #a9b2c0; }
   .session.pin .score li::before { left: -4px; top: calc(50% - 4px); transition: background var(--dur-base) var(--ease-soft); }
   .session.pin .score li.on::before { background: var(--or); }
   .session.pin .score h3 { font-size: clamp(2.2rem, 3.4vw, 3.2rem); }
@@ -1121,7 +1130,8 @@ em { font-style: italic; }
 
 /* home: one call to action at a time */
 .bridge-cta { transition: opacity var(--dur-base) var(--ease-soft), transform var(--dur-base) var(--ease); }
-.cta-visible .bridge-cta { opacity: 0; transform: translate3d(0, -6px, 0); pointer-events: none; }
+.bridge-cta { visibility: visible; }
+.cta-visible .bridge-cta { opacity: 0; transform: translate3d(0, -6px, 0); pointer-events: none; visibility: hidden; transition: opacity var(--dur-base) var(--ease-soft), transform var(--dur-base) var(--ease), visibility 0s linear var(--dur-base); }
 
 /* numbering rule: moments in time are lowercase italic Roman */
 .process li::before {
@@ -1138,3 +1148,45 @@ em { font-style: italic; }
 @media (pointer: coarse) { .grain { animation: none; opacity: .05; } }
 /* phone line: real text spacing, no flex gaps */
 .cta-alt { display: inline-block; padding: .65rem 0; min-height: 44px; }
+
+/* =========================================================
+   MOBILE CONTACT DOCK — always one tap from a call
+   ========================================================= */
+.dock { display: none; }
+@media (max-width: 760px) {
+  .dock {
+    position: fixed; z-index: 44; left: 12px; right: 12px; bottom: calc(12px + env(safe-area-inset-bottom, 0px));
+    display: grid; grid-template-columns: auto 1fr; gap: 8px;
+    transform: translate3d(0, 160%, 0); visibility: hidden;
+    transition: transform var(--dur-base) var(--ease), visibility 0s linear var(--dur-base);
+  }
+  .dock.show { transform: none; visibility: visible; transition: transform var(--dur-base) var(--ease); }
+  .menu-open .dock { transform: translate3d(0, 160%, 0); visibility: hidden; }
+  .dock a {
+    min-height: 52px; display: flex; align-items: center; justify-content: center; gap: .5rem;
+    font: 600 .95rem/1 var(--f-body); letter-spacing: .01em; text-decoration: none;
+    box-shadow: 0 12px 30px -12px rgba(0, 0, 0, .7);
+  }
+  .dock-call {
+    padding: 0 1.2rem; color: var(--ivoire); border: 1px solid var(--hair);
+    background: rgba(6, 17, 31, .92); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px);
+  }
+  .dock-cta { color: var(--nuit); background: var(--gold-fill); }
+  .dock a:active { transform: scale(.985); }
+}
+
+/* Form: what to do if no mail app opened */
+.form-sent {
+  padding: 1.1rem 1.2rem; border: 1px solid var(--hair); background: rgba(201, 165, 90, .05);
+  color: #cfc8b8; font-size: .98rem; line-height: 1.6;
+}
+.form-sent a { color: var(--or-pale); }
+.form-sent button {
+  margin-top: .7rem; min-height: 44px; padding: 0 1rem; cursor: pointer;
+  font: 500 .9rem var(--f-body); color: var(--ivoire); background: transparent; border: 1px solid var(--hair);
+  transition: border-color var(--dur-quick) var(--ease-soft);
+}
+.form-sent button:hover { border-color: var(--or); }
+
+/* keyboard users never land on something still invisible */
+.js [data-reveal]:focus-within, .js [data-hero]:focus-within { opacity: 1; transform: none; transition-delay: 0s; }

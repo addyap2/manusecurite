@@ -186,7 +186,7 @@
         var prog = clamp((vh * 0.82 - r.top) / (r.height + vh * 0.25), 0, 1);
         var lit = prog * (words.length + 4);
         for (var i = 0; i < words.length; i++) {
-          words[i].style.setProperty('--o', (0.16 + 0.84 * clamp(lit - i, 0, 1)).toFixed(2));
+          words[i].style.setProperty('--o', (0.42 + 0.58 * clamp(lit - i, 0, 1)).toFixed(2));
         }
       }
     }
@@ -227,6 +227,22 @@
     new IntersectionObserver(function (entries) {
       root.classList.toggle('cta-visible', entries[0].isIntersecting);
     }).observe(heroCta);
+  }
+
+  /* ---------- Mobile contact dock: after the first screen, away from contact areas ---------- */
+  var dock = document.querySelector('.dock');
+  if (dock && 'IntersectionObserver' in window) {
+    var topEl = document.getElementById('hero-cta') || document.querySelector('.page-hero');
+    var zones = document.querySelectorAll('#aube, .page-cta, #contact-form, .site-foot');
+    var topSeen = true, inZone = new Set();
+    var setDock = function () { dock.classList.toggle('show', !topSeen && inZone.size === 0); };
+    if (topEl) new IntersectionObserver(function (e) { topSeen = e[0].isIntersecting; setDock(); }).observe(topEl);
+    else topSeen = false;
+    var zoneIO = new IntersectionObserver(function (entries) {
+      entries.forEach(function (e) { if (e.isIntersecting) inZone.add(e.target); else inZone.delete(e.target); });
+      setDock();
+    });
+    zones.forEach(function (z) { zoneIO.observe(z); });
   }
 
   /* ---------- Chapter rail ---------- */
@@ -534,6 +550,24 @@
       var body = 'Nom : ' + nom + '\nProfil : ' + profil + '\nContact : ' + coord + '\n\n' + form.message.value.trim();
       window.location.href = 'mailto:providencecotedazur@gmail.com?subject=' +
         encodeURIComponent(subject) + '&body=' + encodeURIComponent(body);
+
+      // In case no mail app is set up: offer the phone and a one-tap copy of the address
+      var help = form.querySelector('.form-sent');
+      if (!help) {
+        help = document.createElement('div');
+        help.className = 'form-sent';
+        help.setAttribute('role', 'status');
+        help.innerHTML = 'Votre messagerie devrait s\u2019ouvrir avec votre demande. Rien ne s\u2019est passé\u00a0? ' +
+          'Appelez le <a href="tel:+33613734252">06\u00a013\u00a073\u00a042\u00a052</a> ou écrivez à ' +
+          '<a href="mailto:providencecotedazur@gmail.com">providencecotedazur@gmail.com</a>.<br>' +
+          '<button type="button">Copier l\u2019adresse e-mail</button>';
+        form.appendChild(help);
+        help.querySelector('button').addEventListener('click', function () {
+          var b = this;
+          var done = function () { b.textContent = 'Adresse copiée'; };
+          if (navigator.clipboard) navigator.clipboard.writeText('providencecotedazur@gmail.com').then(done, function () {});
+        });
+      }
 
       // Confirm what just happened, then return to normal
       var btn = form.querySelector('.ledger-submit');

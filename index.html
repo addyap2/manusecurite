@@ -2,10 +2,13 @@
 <html lang="fr">
 <head>
   <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
   <title>Cabinet Thorelle Conseils — Risk &amp; Management, accompagnement de sûreté</title>
   <meta name="description" content="Cabinet Thorelle Conseils accompagne les entreprises et les particuliers pour mieux comprendre les risques et adopter les bons réflexes : audit de sûreté, sensibilisation, accompagnement des déplacements sensibles.">
   <meta name="theme-color" content="#03070f">
+  <link rel="canonical" href="https://manusecurite.vercel.app/">
+  <meta property="og:url" content="https://manusecurite.vercel.app/">
+  <meta property="og:type" content="website">
   <meta property="og:title" content="Cabinet Thorelle Conseils — Risk & Management">
   <meta property="og:description" content="Anticiper les risques, c'est préserver ce qui compte. Accompagnement de sûreté pour les entreprises et les particuliers.">
   <meta property="og:image" content="https://manusecurite.vercel.app/assets/og-card.jpg">
@@ -15,11 +18,12 @@
   <meta property="og:locale" content="fr_FR">
   <link rel="icon" type="image/png" href="assets/favicon-64.png">
   <link rel="apple-touch-icon" href="assets/apple-touch-icon.png">
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;600&family=Cormorant:ital,wght@0,300;0,400;1,300;1,400&family=Hanken+Grotesk:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="preload" href="/fonts/cormorant.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="/fonts/cormorant-italic.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="/fonts/hanken-grotesk.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="stylesheet" href="styles.css">
   <script>document.documentElement.classList.add('js');</script>
+  <script type="application/ld+json">{"@context":"https://schema.org","@type":"ProfessionalService","name":"Cabinet Thorelle Conseils","description":"Risk & Management, accompagnement de sûreté pour les entreprises et les particuliers.","url":"https://manusecurite.vercel.app/","telephone":"+33613734252","email":"providencecotedazur@gmail.com","image":"https://manusecurite.vercel.app/assets/og-card.jpg","logo":"https://manusecurite.vercel.app/assets/crest.png","founder":{"@type":"Person","name":"Emmanuel Thorelle"}}</script>
 </head>
 <body>
   <a class="skip" href="#contenu">Aller au contenu</a>
@@ -29,7 +33,7 @@
   <!-- Instruments -->
   <header class="bridge">
     <a class="mark" href="#prologue" aria-label="Cabinet Thorelle Conseils, retour au début">
-      <img src="assets/crest.png" alt="" width="40" height="35">
+      <img src="/assets/crest-96.webp" alt="" width="40" height="35">
       <span class="mark-name">Thorelle <i>Conseils</i></span>
     </a>
     <div class="bridge-right">
@@ -228,10 +232,10 @@
         </li>
       </ol>
 
-      <aside class="session-private" data-reveal>
+      <div class="session-private" data-reveal>
         <p class="dossier-tag">Pour les particuliers</p>
         <p class="private-text">Une version plus simple et rassurante, centrée sur <em>le domicile</em>, <em>les bons réflexes</em>, et la façon d'<em>anticiper</em> les situations à risque.</p>
-      </aside>
+      </div>
     </section>
 
     <!-- IV. LE SERMENT -->
@@ -341,7 +345,7 @@
 
       <footer class="site-foot">
         <div class="foot-brand">
-          <img src="/assets/crest.png" alt="" width="56" height="49" loading="lazy">
+          <img src="/assets/crest-160.webp" alt="" width="56" height="49" loading="lazy" decoding="async">
           <p class="colophon-name">Cabinet Thorelle Conseils</p>
           <p class="colophon-sub">Risk &amp; Management · Accompagnement de Sûreté</p>
         </div>
@@ -370,6 +374,10 @@
       </footer>
     </section>
   </main>
+  <nav class="dock" aria-label="Contact rapide">
+    <a class="dock-call" href="tel:+33613734252"><svg aria-hidden="true" viewBox="0 0 24 24" width="18" height="18"><path fill="currentColor" d="M6.6 10.8a15.1 15.1 0 0 0 6.6 6.6l2.2-2.2c.3-.3.7-.4 1-.2 1.1.4 2.3.6 3.6.6.6 0 1 .4 1 1V20c0 .6-.4 1-1 1A17 17 0 0 1 3 4c0-.6.4-1 1-1h3.5c.6 0 1 .4 1 1 0 1.3.2 2.5.6 3.6.1.3 0 .7-.2 1l-2.3 2.2Z"/></svg>Appeler</a>
+    <a class="dock-cta" href="#aube">Premier échange</a>
+  </nav>
 
   <script src="/script.js" defer></script>
 </body>
