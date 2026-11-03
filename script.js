@@ -125,6 +125,37 @@
   var litany = Array.prototype.slice.call(document.querySelectorAll('.litany li'));
   var START = 21 * 60 + 47;           // 21:47
   var END = 24 * 60 + 6 * 60 + 12;    // 06:12 the next morning
+
+  // The clock follows the chapter stamps: when a chapter heading reaches the
+  // middle of the screen, the clock shows that chapter's hour.
+  var stops = [];
+  function toMinutes(txt) {
+    var m = /(\d{1,2}):(\d{2})/.exec(txt || '');
+    if (!m) return null;
+    var v = +m[1] * 60 + +m[2];
+    return v < START ? v + 1440 : v;            // after midnight = next day
+  }
+  function measureStops() {
+    var vh = window.innerHeight, sy = window.scrollY || 0;
+    var max = Math.max(1, document.documentElement.scrollHeight - vh);
+    stops = [{ y: 0, m: START }];
+    document.querySelectorAll('main .chapter-hour').forEach(function (el) {
+      var m = toMinutes(el.textContent);
+      if (m === null) return;
+      var y = clamp(el.getBoundingClientRect().top + sy - vh / 2, 1, max);
+      if (y > stops[stops.length - 1].y && m >= stops[stops.length - 1].m) stops.push({ y: y, m: m });
+    });
+    if (stops.length === 1 || stops[stops.length - 1].m < END) stops.push({ y: max, m: END });
+  }
+  function clockAt(y) {
+    for (var i = 1; i < stops.length; i++) {
+      if (y <= stops[i].y) {
+        var a = stops[i - 1], b = stops[i];
+        return a.m + (b.m - a.m) * clamp((y - a.y) / Math.max(1, b.y - a.y), 0, 1);
+      }
+    }
+    return stops[stops.length - 1].m;
+  }
   var ticking = false;
 
   function clamp(v, a, b) { return Math.max(a, Math.min(b, v)); }
@@ -138,7 +169,7 @@
     var max = Math.max(1, document.documentElement.scrollHeight - vh);
     var p = clamp(y / max, 0, 1);
 
-    var mins = Math.round(START + p * (END - START)) % 1440;
+    var mins = Math.round(clockAt(y)) % 1440;
     if (clock) clock.textContent = pad(Math.floor(mins / 60)) + ':' + pad(mins % 60);
 
     root.style.setProperty('--dawn', smooth(0.82, 1, p).toFixed(3));
@@ -184,8 +215,19 @@
   }
   function onScroll() { if (!ticking) { ticking = true; requestAnimationFrame(update); } }
   window.addEventListener('scroll', onScroll, { passive: true });
-  window.addEventListener('resize', onScroll);
+  window.addEventListener('resize', function () { measureStops(); onScroll(); });
+  window.addEventListener('load', function () { measureStops(); onScroll(); });
+  if (document.fonts && document.fonts.ready) document.fonts.ready.then(function () { measureStops(); onScroll(); });
+  measureStops();
   update();
+
+  /* ---------- One call to action at a time (home) ---------- */
+  var heroCta = document.getElementById('hero-cta');
+  if (heroCta && 'IntersectionObserver' in window) {
+    new IntersectionObserver(function (entries) {
+      root.classList.toggle('cta-visible', entries[0].isIntersecting);
+    }).observe(heroCta);
+  }
 
   /* ---------- Chapter rail ---------- */
   var links = {};
@@ -321,7 +363,7 @@
         var rk = risks[i], dd = aDiff(shown, rk.ang) / 6.5;
         var lit = Math.exp(-dd * dd) * power;
         if (lit > 0.55 && !rk.seen) { rk.seen = true; rk.el.classList.add('seen'); }
-        var o = Math.max(lit, rk.seen ? 0.2 * (1 - scrollP) : 0);
+        var o = Math.max(lit, rk.seen ? 0.12 * (1 - scrollP) : 0);
         if (Math.abs(o - rk.o) > 0.01) { rk.el.style.opacity = o.toFixed(2); rk.o = o; }
       }
 

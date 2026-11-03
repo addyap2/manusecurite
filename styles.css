@@ -16,6 +16,9 @@
   --hair: rgba(201, 165, 90, 0.22);
   --hair-soft: rgba(201, 165, 90, 0.12);
   --gold-text: linear-gradient(100deg, #f3e2b0 0%, #d8b469 40%, #a8823b 100%);
+  --gold-fill: linear-gradient(100deg, #f3dfab, #d4b064 55%, #b48b42);
+  --dawn-text: linear-gradient(100deg, #f6dfb0, #e9a774 70%, #c9805a);
+  --dawn-line: linear-gradient(90deg, transparent, rgba(243, 214, 160, .55), transparent);
 
   --f-display: "Cormorant", "Cormorant Garamond", Georgia, serif;
   --f-herald: "Cinzel", "Times New Roman", serif;
@@ -313,7 +316,7 @@ em { font-style: italic; }
   display: inline-flex; align-items: center; gap: 1.3rem; min-height: 58px; padding: 0 1.5rem 0 1.6rem;
   font-family: var(--f-herald); font-size: .72rem; font-weight: 600; letter-spacing: .2em; text-transform: uppercase;
   color: var(--nuit); text-decoration: none; white-space: nowrap;
-  background: linear-gradient(100deg, #f3dfab, #d4b064 55%, #b48b42);
+  background: var(--gold-fill);
   box-shadow: 0 14px 44px -14px rgba(236, 213, 155, .6);
   transition: transform var(--dur-slow) var(--ease), box-shadow var(--dur-slow) var(--ease);
 }
@@ -461,14 +464,13 @@ em { font-style: italic; }
 .index li {
   position: relative; display: grid; grid-template-columns: 3.2rem 1fr; align-items: baseline;
   padding: 1.05rem 0; border-top: 1px solid var(--hair-soft);
-  color: var(--ivoire); transition: color var(--dur-base), padding-left var(--dur-slow) var(--ease);
+  color: var(--ivoire); transition: color var(--dur-base);
 }
 .index li span { font-family: var(--f-herald); font-size: .72rem; letter-spacing: .14em; color: var(--brume); transition: color var(--dur-base); }
 .index li::before {
   content: ""; position: absolute; left: 0; top: -1px; height: 1px; width: 100%;
   background: var(--or); transform: scaleX(0); transform-origin: left; transition: transform var(--dur-slow) var(--ease);
 }
-.index li:hover { padding-left: .6rem; }
 .index li:hover span { color: var(--or-pale); }
 .index li:hover::before { transform: scaleX(1); }
 
@@ -580,7 +582,7 @@ em { font-style: italic; }
 .aube::before {
   /* the first horizon line of day */
   content: ""; position: absolute; left: 0; right: 0; bottom: 210px; height: 1px;
-  background: linear-gradient(90deg, transparent, rgba(243, 214, 160, .55), transparent);
+  background: var(--dawn-line);
 }
 .aube-inner > * { max-width: 1240px; }
 .aube-grid { display: grid; grid-template-columns: 1.1fr .9fr; gap: clamp(3rem, 7vw, 7rem); align-items: start; }
@@ -590,7 +592,7 @@ em { font-style: italic; }
 }
 .aube-title em {
   display: block;
-  background: linear-gradient(100deg, #f6dfb0, #e9a774 70%, #c9805a); -webkit-background-clip: text; background-clip: text; color: transparent;
+  background: var(--dawn-text); -webkit-background-clip: text; background-clip: text; color: transparent;
 }
 .aube-text { color: var(--brume); max-width: 38ch; margin-bottom: 3rem; }
 .phone { display: inline-flex; flex-direction: column; gap: .3rem; text-decoration: none; margin-bottom: 1.4rem; }
@@ -638,7 +640,7 @@ em { font-style: italic; }
   display: flex; align-items: center; justify-content: space-between; gap: 1rem;
   width: 100%; min-height: 60px; padding: 0 1.4rem; cursor: pointer;
   font-family: var(--f-herald); font-size: .78rem; font-weight: 600; letter-spacing: .3em; text-transform: uppercase;
-  color: var(--nuit); background: linear-gradient(100deg, #f1dca6, #d0ab5f 55%, #b48b42);
+  color: var(--nuit); background: var(--gold-fill);
   border: 0; border-radius: 0;
   transition: filter var(--dur-base), transform var(--dur-slow) var(--ease);
 }
@@ -775,15 +777,15 @@ em { font-style: italic; }
 .page-hero.compact { min-height: min(62vh, 600px); }
 .page-hero::before {
   /* a still beam from a lamp on the bottom edge */
-  content: ""; position: absolute; z-index: -1; right: 12%; bottom: 0; width: 220vmax; height: 220vmax;
-  transform: translate(50%, 50%) rotate(-28deg);
+  content: ""; position: absolute; z-index: -1; right: var(--beam-x, 12%); bottom: 0; width: 220vmax; height: 220vmax;
+  transform: translate(50%, 50%) rotate(var(--beam-rot, -28deg));
   background: conic-gradient(from -6deg at 50% 50%, rgba(236,213,155,0) 0deg, rgba(236,213,155,.12) 5deg, rgba(255,240,205,.18) 6deg, rgba(236,213,155,.12) 7deg, rgba(236,213,155,0) 12deg, transparent 360deg);
   -webkit-mask-image: radial-gradient(circle at 50% 50%, #000 0%, rgba(0,0,0,.5) 10%, transparent 26%);
           mask-image: radial-gradient(circle at 50% 50%, #000 0%, rgba(0,0,0,.5) 10%, transparent 26%);
   filter: blur(5px);
 }
 .page-hero::after {
-  content: ""; position: absolute; right: 12%; bottom: -4px; width: 8px; height: 8px; border-radius: 50%;
+  content: ""; position: absolute; right: var(--beam-x, 12%); bottom: -4px; width: 8px; height: 8px; border-radius: 50%; margin-right: -4px;
   background: #fff6dc; box-shadow: 0 0 14px 4px rgba(255,236,190,.8), 0 0 60px 20px rgba(236,213,155,.25);
 }
 .crumbs {
@@ -855,7 +857,7 @@ em { font-style: italic; }
 }
 .page-cta-inner { display: grid; grid-template-columns: 1fr auto; gap: 2.5rem 4rem; align-items: end; max-width: 1240px; }
 .page-cta h2 { font-family: var(--f-display); font-weight: 300; font-size: clamp(2.4rem, 5vw, 4.6rem); line-height: 1; }
-.page-cta h2 em { display: block; background: linear-gradient(100deg, #f6dfb0, #e9a774 70%, #c9805a); -webkit-background-clip: text; background-clip: text; color: transparent; }
+.page-cta h2 em { display: block; background: var(--dawn-text); -webkit-background-clip: text; background-clip: text; color: transparent; }
 .page-cta p { color: var(--brume); margin-top: 1.2rem; max-width: 42ch; }
 @media (max-width: 860px) { .page-cta-inner { grid-template-columns: 1fr; } .page-cta .hero-actions { justify-items: stretch; } }
 
@@ -987,7 +989,7 @@ em { font-style: italic; }
 .js .page-hero .hero-actions { transition-delay: 980ms; }
 
 /* ---- 3. Word-mask title reveals ([data-split]) ---- */
-.wm { display: inline-block; overflow: hidden; vertical-align: top; padding-bottom: .1em; margin-bottom: -.1em; }
+.wm { display: inline-block; overflow: hidden; vertical-align: top; padding: .14em 0 .1em; margin: -.14em 0 -.1em; }
 .wi { display: inline-block; }
 .js [data-split] .wi { transform: translate3d(0, 108%, 0); }
 .js [data-split].in .wi {
@@ -996,7 +998,7 @@ em { font-style: italic; }
   transition-delay: calc(min(var(--i, 0), 12) * 55ms + var(--split-delay, 0ms));
 }
 /* gradient words: carry the gradient on each word, not on the parent */
-.aube-title em, .page-cta h2 em { --g: linear-gradient(100deg, #f6dfb0, #e9a774 70%, #c9805a); }
+.aube-title em, .page-cta h2 em { --g: var(--dawn-text); }
 .js [data-split] em { background: none !important; }
 .js [data-split] em .wi {
   background-image: var(--g, var(--gold-text)); -webkit-background-clip: text; background-clip: text; color: transparent;
@@ -1069,3 +1071,70 @@ em { font-style: italic; }
   .media-reveal { clip-path: none; }
   .media-reveal img { transform: none; }
 }
+
+/* =========================================================
+   IDENTITY REFINEMENTS — docs/AUDIT.md
+   Three voices: Cinzel (heraldic) only for chapters, numerals, clock, brand
+   and the hero label; Cormorant for what matters; Hanken for everything
+   functional, in sentence case, never under 12px.
+   ========================================================= */
+:root { --label: 500 .875rem/1.4 var(--f-body); }
+
+/* functional labels move to the clear voice */
+.bridge-cta, .menu-btn, .link-line, .quick a, .crumbs, .dossier-tag, .phone-label,
+.session-now span, .sig-role, .foot-title, .post-meta, .article-meta,
+.ledger-profil legend, .ledger-field > span, .reassure, .form-note {
+  font: var(--label); letter-spacing: .01em; text-transform: none;
+}
+.bridge-cta { font-weight: 500; color: var(--or-pale); }
+.menu-btn { font-weight: 500; }
+.link-line { font-size: .95rem; }
+.quick a { font-size: .92rem; }
+.crumbs { font-size: .85rem; color: var(--brume); }
+.dossier-tag, .phone-label { color: var(--or); font-weight: 600; font-size: .82rem; letter-spacing: .04em; }
+.post-meta b, .article-meta b { font-weight: 600; letter-spacing: .02em; }
+.post-meta, .article-meta { font-size: .85rem; }
+.foot-title { color: var(--or); font-weight: 600; font-size: .82rem; }
+.ledger-field > span, .ledger-profil legend { color: var(--brume); font-size: .88rem; }
+.ledger-profil legend { color: var(--or); }
+
+/* buttons: sentence case, confident weight */
+.cta, .ledger-submit {
+  font-family: var(--f-body); font-weight: 600; font-size: .98rem; letter-spacing: .01em; text-transform: none;
+}
+@media (max-width: 760px) {
+  .cta { font-size: .95rem; letter-spacing: 0; }
+}
+
+/* the hint speaks in the engraved voice, quietly */
+.hint { font-family: var(--f-display); font-style: italic; font-size: 1.05rem; letter-spacing: .01em; text-transform: none; }
+
+/* heraldic voice: minimum 12px */
+.kicker { font-size: .78rem; }
+.chapter-hour, .clock { font-size: .78rem; }
+.index li span, .values-grid li span, .ln, .rn, .rl, .menu-list a span { font-size: .78rem; }
+.three-unit { font-size: .88rem; }
+.faq-group > h2 { font-size: .8rem; }
+
+/* scroll cue: the falling line says enough */
+.scroll-cue span { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+
+/* home: one call to action at a time */
+.bridge-cta { transition: opacity var(--dur-base) var(--ease-soft), transform var(--dur-base) var(--ease); }
+.cta-visible .bridge-cta { opacity: 0; transform: translate3d(0, -6px, 0); pointer-events: none; }
+
+/* numbering rule: moments in time are lowercase italic Roman */
+.process li::before {
+  content: counter(step, lower-roman);
+  font-family: var(--f-display); font-style: italic; font-size: 1.4rem; letter-spacing: 0; color: var(--or);
+}
+
+/* footer meets the page on a warm horizon line */
+.site-foot { position: relative; border-top: 0; }
+.site-foot::before { content: ""; position: absolute; left: 0; right: 0; top: 0; height: 1px; background: var(--dawn-line); }
+.aube .site-foot::before { display: none; }
+
+/* grain: lighter and still on touch screens */
+@media (pointer: coarse) { .grain { animation: none; opacity: .05; } }
+/* phone line: real text spacing, no flex gaps */
+.cta-alt { display: inline-block; padding: .65rem 0; min-height: 44px; }
