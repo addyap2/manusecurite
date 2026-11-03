@@ -6,8 +6,37 @@
     requestAnimationFrame(function () { root.classList.add('is-ready'); });
   });
 
+  /* ---------- Word-mask titles: wrap each word ([data-split]) ---------- */
+  document.querySelectorAll('[data-split]').forEach(function (el) {
+    var n = 0;
+    (function walk(node) {
+      Array.prototype.slice.call(node.childNodes).forEach(function (child) {
+        if (child.nodeType === 3) {
+          var frag = document.createDocumentFragment();
+          child.textContent.split(/(\s+)/).forEach(function (part) {
+            if (!part) return;
+            if (/^\s+$/.test(part)) { frag.appendChild(document.createTextNode(part)); return; }
+            var m = document.createElement('span'), w = document.createElement('span');
+            m.className = 'wm'; w.className = 'wi'; w.textContent = part; w.style.setProperty('--i', n++);
+            m.appendChild(w); frag.appendChild(m);
+          });
+          node.replaceChild(frag, child);
+        } else if (child.nodeType === 1) { walk(child); }
+      });
+    })(el);
+  });
+
+  /* ---------- Stagger: children of [data-stagger] reveal one after another ---------- */
+  document.querySelectorAll('[data-stagger]').forEach(function (parent) {
+    var step = parent.getAttribute('data-stagger');
+    if (step) parent.style.setProperty('--stagger-step', step + 'ms');
+    parent.querySelectorAll(':scope > [data-reveal], :scope > li > [data-reveal]').forEach(function (child, i) {
+      child.style.setProperty('--i', i);
+    });
+  });
+
   /* ---------- Reveals & hairlines ---------- */
-  var revealables = document.querySelectorAll('[data-reveal], [data-draw]');
+  var revealables = document.querySelectorAll('[data-reveal], [data-draw], [data-split], .media-reveal');
   if ('IntersectionObserver' in window && !reduce) {
     var io = new IntersectionObserver(function (entries) {
       entries.forEach(function (e) {
@@ -40,6 +69,53 @@
         }
       });
     })(manifesto);
+  }
+
+  /* ---------- Pinned session (desktop): steps light up as the hours pass ---------- */
+  var pinned = [];
+  var pinMQ = window.matchMedia('(min-width: 1100px)');
+  var sessions = document.querySelectorAll('.session');
+  function setupPin() {
+    var on = pinMQ.matches && !reduce;
+    pinned = [];
+    sessions.forEach(function (sec) {
+      sec.classList.toggle('pin', on);
+      var score = sec.querySelector('.score');
+      if (on && score) pinned.push(score);
+    });
+  }
+  setupPin();
+  if (pinMQ.addEventListener) pinMQ.addEventListener('change', function () { setupPin(); onScroll(); });
+
+  if ('IntersectionObserver' in window) {
+    sessions.forEach(function (sec) {
+      var steps = Array.prototype.slice.call(sec.querySelectorAll('.score li'));
+      var now = sec.querySelector('.session-now b');
+      if (!steps.length) return;
+      steps[0].classList.add('on');
+      var stepIO = new IntersectionObserver(function (entries) {
+        entries.forEach(function (e) {
+          if (!e.isIntersecting) return;
+          steps.forEach(function (st) { st.classList.toggle('on', st === e.target); });
+          var label = e.target.querySelector('h3');
+          if (now && label && now.textContent !== label.textContent) {
+            now.textContent = label.textContent;
+            now.classList.remove('swap'); void now.offsetWidth; now.classList.add('swap');
+          }
+        });
+      }, { rootMargin: '-45% 0px -45% 0px' });
+      steps.forEach(function (st) { stepIO.observe(st); });
+    });
+  }
+
+  /* ---------- Reading progress (articles) ---------- */
+  var article = document.querySelector('.prose');
+  var readBar = null;
+  if (article && !reduce) {
+    readBar = document.createElement('div');
+    readBar.className = 'read-progress';
+    readBar.setAttribute('aria-hidden', 'true');
+    document.body.appendChild(readBar);
   }
 
   /* ---------- Scroll-driven: clock, dawn, parallax, manifesto, litany ---------- */
@@ -82,6 +158,16 @@
           words[i].style.setProperty('--o', (0.16 + 0.84 * clamp(lit - i, 0, 1)).toFixed(2));
         }
       }
+    }
+
+    for (var q = 0; q < pinned.length; q++) {
+      var sr = pinned[q].getBoundingClientRect();
+      pinned[q].style.setProperty('--sp', clamp((vh * 0.5 - sr.top) / sr.height, 0, 1).toFixed(3));
+    }
+
+    if (readBar && article) {
+      var ar = article.getBoundingClientRect();
+      readBar.style.setProperty('--rp', clamp((vh * 0.35 - ar.top) / Math.max(1, ar.height - vh * 0.5), 0, 1).toFixed(3));
     }
 
     if (litany.length) {
@@ -347,6 +433,32 @@
     });
   }
 
+  /* ---------- FAQ: answers unfold instead of jumping ---------- */
+  document.querySelectorAll('.faq details').forEach(function (d) {
+    var summary = d.querySelector('summary');
+    var body = d.querySelector('.faq-answer');
+    var anim = null, closing = false;
+    summary.addEventListener('click', function (e) {
+      if (reduce || !body.animate) return;
+      e.preventDefault();
+      var from = body.offsetHeight;                 // current height, even mid-animation
+      if (anim) { anim.cancel(); anim = null; }
+      if (d.open && !closing) {
+        closing = true;
+        anim = body.animate([{ height: from + 'px', opacity: 1 }, { height: '0px', opacity: 0 }],
+          { duration: 320, easing: 'cubic-bezier(0.7, 0, 0.84, 0)' });
+        anim.onfinish = function () { d.open = false; closing = false; anim = null; };
+      } else {
+        closing = false;
+        d.open = true;
+        var to = body.scrollHeight;
+        anim = body.animate([{ height: (from || 0) + 'px', opacity: from ? 1 : 0 }, { height: to + 'px', opacity: 1 }],
+          { duration: 560, easing: 'cubic-bezier(0.16, 1, 0.3, 1)' });
+        anim.onfinish = function () { anim = null; };
+      }
+    });
+  });
+
   /* ---------- Contact form (home and /contact/) ---------- */
   var form = document.getElementById('contact-form');
   if (form) {
@@ -380,6 +492,15 @@
       var body = 'Nom : ' + nom + '\nProfil : ' + profil + '\nContact : ' + coord + '\n\n' + form.message.value.trim();
       window.location.href = 'mailto:providencecotedazur@gmail.com?subject=' +
         encodeURIComponent(subject) + '&body=' + encodeURIComponent(body);
+
+      // Confirm what just happened, then return to normal
+      var btn = form.querySelector('.ledger-submit');
+      var label = btn && btn.querySelector('span');
+      if (label) {
+        var original = label.textContent;
+        btn.classList.add('sent'); label.textContent = 'Messagerie ouverte ✓';
+        setTimeout(function () { btn.classList.remove('sent'); label.textContent = original; }, 5000);
+      }
     });
   }
 

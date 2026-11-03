@@ -152,7 +152,7 @@
         <span class="chapter-hour">01:00</span>
       </header>
 
-      <div class="dossiers">
+      <div class="dossiers" data-stagger>
         <article class="dossier" id="entreprises" data-reveal>
           <p class="dossier-tag">Dossier A</p>
           <h3 class="dossier-title">Entreprises</h3>
@@ -199,9 +199,10 @@
       <div class="session-intro">
         <p class="session-big" data-reveal><span class="three">3</span><span class="three-unit">heures</span></p>
         <p class="session-text" data-reveal>Une session pour vos équipes&nbsp;: de la théorie, de l'observation, et de petits scénarios pratiques pour que les bons gestes deviennent des réflexes.</p>
+        <p class="session-now" aria-hidden="true"><span>En cours</span><b>Théorie</b></p>
       </div>
 
-      <ol class="score" aria-label="Déroulé de la session entreprise">
+      <ol class="score" data-stagger aria-label="Déroulé de la session entreprise">
         <li data-reveal>
           <span class="score-mark">i</span>
           <h3>Théorie</h3>
@@ -263,7 +264,7 @@
         <h2 id="h-journal" class="chapter-label">Le journal de veille</h2>
         <span class="chapter-hour">05:40</span>
       </header>
-      <ol class="post-list">
+      <ol class="post-list" data-stagger>
         <li data-reveal>
           <a class="post-link" href="/journal/partir-en-vacances-l-esprit-tranquille/">
             <p class="post-meta"><b>Particuliers</b>2 min de lecture</p>
@@ -301,7 +302,7 @@
 
         <div class="aube-grid">
           <div class="aube-copy">
-            <h2 id="h-aube" class="aube-title" data-reveal>Parlons de ce qui <em>compte pour vous.</em></h2>
+            <h2 id="h-aube" class="aube-title" data-split>Parlons de ce qui <em>compte pour vous.</em></h2>
             <p class="aube-text" data-reveal>Un premier échange, en toute discrétion, pour comprendre votre situation.</p>
             <a class="phone" href="tel:+33613734252" data-reveal>
               <span class="phone-label">Appeler</span>
