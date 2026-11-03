@@ -47,25 +47,56 @@
 
   <main id="contenu">
 
-    <!-- PROLOGUE -->
+    <!-- PROLOGUE : LE PHARE -->
     <section class="prologue" id="prologue" aria-labelledby="motto">
       <div class="sky" aria-hidden="true">
-        <div class="beam"></div>
         <div class="stars"></div>
+        <div class="beam" id="beam"><div class="beam-haze"></div><div class="beam-core"></div></div>
+        <canvas class="dust" id="dust"></canvas>
+        <ul class="risks" id="risks">
+          <li style="--x:62%;--y:13%;--mx:46%;--my:10.5%">Imprévu</li>
+          <li style="--x:89%;--y:15%;--mx:10%;--my:12%">Intrusion</li>
+          <li style="--x:94%;--y:39%;--mx:80%;--my:14%">Conflit</li>
+          <li style="--x:79%;--y:27%">Vie privée</li>
+          <li style="--x:46%;--y:7.5%">Incident</li>
+          <li style="--x:31%;--y:12%">Déplacement sensible</li>
+          <li style="--x:70%;--y:6%">Accès</li>
+          <li style="--x:40%;--y:19%">Vulnérabilité</li>
+        </ul>
+      </div>
+
+      <div class="lamp" id="lamp" aria-hidden="true">
+        <span class="lamp-flare"></span>
+        <span class="lamp-core"></span>
+        <span class="hint">Déplacez la lumière</span>
       </div>
 
       <div class="prologue-inner">
-        <p class="kicker" data-reveal><span>Cabinet Thorelle Conseils</span><span class="kicker-sep"></span><span>Risk &amp; Management</span></p>
-        <h1 id="motto" class="motto">
-          <span class="line"><span>Anticiper</span></span>
-          <span class="line"><span>les risques,</span></span>
-          <span class="line line-gold"><span><em>c'est préserver</em></span></span>
-          <span class="line line-gold"><span><em>ce qui compte.</em></span></span>
-        </h1>
-        <div class="prologue-foot" data-reveal>
-          <p>Accompagnement de sûreté<br>pour les entreprises et les particuliers.</p>
-          <a class="scroll-cue" href="#observer"><span>Commencer la veille</span><i aria-hidden="true"></i></a>
+        <p class="kicker" data-hero><span>Conseil en sûreté</span><span class="kicker-sep"></span><span>Entreprises &amp; particuliers</span></p>
+        <div class="hero-grid">
+          <h1 id="motto" class="motto">
+            <span class="line"><span>Anticiper</span></span>
+            <span class="line"><span>les risques,</span></span>
+            <span class="line line-gold"><span><em>c'est préserver</em></span></span>
+            <span class="line line-gold"><span><em>ce qui compte.</em></span></span>
+          </h1>
+          <div class="hero-side">
+            <p class="hero-sub" data-hero>Audit de sûreté, sensibilisation des équipes, accompagnement sur mesure&nbsp;: repérer les risques avant qu'ils ne vous atteignent.</p>
+            <div class="hero-actions" data-hero>
+              <a class="cta" id="hero-cta" href="#aube"><span>Réserver un premier échange</span><i aria-hidden="true"></i></a>
+              <a class="cta-alt" href="tel:+33613734252">ou appeler le <span>06&nbsp;13&nbsp;73&nbsp;42&nbsp;52</span></a>
+            </div>
+            <p class="reassure" data-hero><span aria-hidden="true">✦</span> Échange confidentiel</p>
+          </div>
         </div>
+      </div>
+
+      <div class="prologue-bar" data-hero>
+        <nav class="quick" aria-label="Accès rapide">
+          <a href="#entreprises">Entreprises</a>
+          <a href="#particuliers">Particuliers</a>
+        </nav>
+        <a class="scroll-cue" href="#observer"><span>Commencer la veille</span><i aria-hidden="true"></i></a>
       </div>
 
       <div class="horizon" aria-hidden="true">

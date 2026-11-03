@@ -105,3 +105,92 @@ Only `transform` and `opacity` are animated. The sea canvas stops when it is off
 - [ ] Portrait of Emmanuel, shot at night with one warm side light (fits the art direction)
 - [ ] Vector version of the crest
 - [ ] Legal notice (mentions légales), service area
+
+---
+
+## 10. The hero: « Le Phare »
+
+### Central concept: the light reveals the risks
+
+The night sky of the hero holds **hidden words**, the risks the cabinet deals with: *Intrusion, Imprévu, Conflit, Vie privée, Incident, Déplacement sensible, Accès, Vulnérabilité*. They are invisible in the dark. **They only appear when the lighthouse beam passes over them.** Once seen, a risk keeps a small gold mark ✦: it has been *anticipated*.
+
+The visitor steers the beam with the cursor. Within three seconds, without reading a line, they *do* what the cabinet does: shine a light on the risks before they arrive. The motto then explains what they just felt.
+
+On touch screens the beam sweeps by itself, and dragging a finger steers it.
+
+### Composition (desktop ≥ 1280px)
+
+```
+┌──────────────────────────────────────────────────────────────┐
+│ [crest] THORELLE CONSEILS            VEILLE 21:47  ENTRETIEN │
+│                                   Imprévu        Intrusion   │
+│  CONSEIL EN SÛRETÉ ── ENTREPRISES & PARTICULIERS  Vie privée │
+│                                                              │
+│  Anticiper                                         Conflit   │
+│        les risques,                ┌─────────────────────┐   │
+│    c'est préserver                 │ sub-headline        │   │
+│         ce qui compte.             │ [ RÉSERVER ──→ ]    │   │
+│                                    │ ou appeler le 06 …  │   │
+│                                    └─────────────────────┘   │
+│  ENTREPRISES · PARTICULIERS      ⁄\/\     ✺ ← déplacez la lumière │
+│ ════════════════════════ horizon ════════ ¦¦¦ reflection ═══ │
+│  ~~~~~~~~~~~~~~~~~~~~~~~~ sea ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~  │
+└──────────────────────────────────────────────────────────────┘
+```
+
+- The headline is weighted left on 4 staggered lines; the conversion block sits on the right, **in the path of the light**.
+- The lamp sits on the horizon at 72% of the width. Everything points to it.
+- Below 1280px, the conversion block moves under the headline.
+
+### Words
+
+| Element | Text |
+|---|---|
+| Eyebrow | CONSEIL EN SÛRETÉ — ENTREPRISES & PARTICULIERS |
+| Headline (H1) | Anticiper les risques, *c'est préserver ce qui compte.* |
+| Sub-headline | Audit de sûreté, sensibilisation des équipes, accompagnement sur mesure : repérer les risques avant qu'ils ne vous atteignent. |
+| Primary CTA | Réserver un premier échange → |
+| Secondary CTA | ou appeler le 06 13 73 42 52 |
+| Reassurance | Échange confidentiel |
+| Quick paths | Entreprises · Particuliers |
+| Hint (fine pointer only) | Déplacez la lumière |
+
+The headline is the brand's own motto (emotion); the sub-headline says exactly what is sold (clarity); the CTA names the next step, not "Contact".
+
+### Light, 3D and texture
+
+- **Volumetric beam**: two conic layers (a wide haze and a sharp core) plus **dust in suspension**. Particles exist everywhere, but are only visible inside the beam, which gives real depth for almost no cost (2D canvas, no WebGL).
+- **The lamp**: a point of light with a soft halo and a faint horizontal lens flare.
+- **The sea**: shimmering dashes; the lamp's reflection is a vertical column, as in the crest.
+- **Parallax**: stars, beam, ridge and sea move at different speeds with the pointer (±8px) and on scroll.
+- **Grain** over everything, at 7%.
+
+### Entrance (≈ 2.8s, then the page belongs to the visitor)
+
+| Time | Event |
+|---|---|
+| 0.0s | Darkness. Stars only. |
+| 0.25s | **The lamp ignites**: a flicker, then a steady glow (like a lamp being lit). |
+| 0.6s | The ridge draws itself along the horizon. |
+| 0.8s | The beam rises from the horizon and makes its first sweep, revealing two or three risks. |
+| 0.9–1.6s | The headline rises line by line from a mask. |
+| 1.7s | Sub-headline, then CTA. |
+| 2.4s | Hint "Déplacez la lumière" appears near the lamp, and fades at the first move. |
+
+### Interaction details
+
+- The beam follows the pointer with inertia (lerp 0.06): it feels heavy, like a real lamp.
+- **Hovering or focusing the CTA swings the beam onto it**: the button is literally put in the light.
+- The CTA carries a soft sheen that follows the pointer.
+- After 4 seconds idle, the beam resumes its slow automatic sweep.
+
+### Scroll behaviour
+
+On the first screen of scroll, the headline rises and fades, the beam lowers towards the horizon and dims, and the lamp shrinks: the watch moves on to chapter I.
+
+### Usability and speed
+
+- Real text, real links, and the CTA visible in the first screen (desktop and mobile).
+- Risk words are decorative (`aria-hidden`); the meaning is carried by the headline and sub-headline.
+- No libraries: one 2D canvas for dust and sea, paused off screen, 30 fps for the sea, particles halved on mobile.
+- `prefers-reduced-motion`: fixed beam, all risk words softly visible, no dust, no entrance.
