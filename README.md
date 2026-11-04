@@ -37,6 +37,9 @@ Fonctionne tel quel sur Vercel, Netlify ou GitHub Pages (dossier racine).
 
 ## À compléter avant la mise en ligne
 
+- [ ] CNAPS : si Emmanuel détient l'autorisation, ajouter son numéro (mentions légales + pages services) avant de proposer « protection rapprochée » et « contre-filature » (volontairement absents du site pour l'instant)
+- [ ] Photo d'hélicoptère : demander le fichier original (la version actuelle vient d'une photo d'écran)
+
 Voir la checklist complète dans `docs/LAUNCH-AUDIT.md`.
 
 

@@ -1230,3 +1230,43 @@ em { font-style: italic; }
   .keeper { transform: translate3d(-50%, 0, 0); }
   .js .keeper img { opacity: .6; transform: none; transition: none; }
 }
+
+/* =========================================================
+   PHOTOGRAPHY — the founder, always black and white, at night
+   ========================================================= */
+.photo, .cutout { margin: 0; }
+.photo img, .cutout img { display: block; width: 100%; height: auto; }
+.photo figcaption { margin-top: .9rem; font: var(--label); color: var(--brume); }
+/* rectangular photos dissolve into the night at their edges */
+.photo-night img {
+  -webkit-mask-image: linear-gradient(to right, transparent 0, #000 14%, #000 86%, transparent 100%),
+                      linear-gradient(to bottom, transparent 0, #000 12%, #000 80%, transparent 100%);
+  -webkit-mask-composite: source-in;
+          mask-image: linear-gradient(to right, transparent 0, #000 14%, #000 86%, transparent 100%),
+                      linear-gradient(to bottom, transparent 0, #000 12%, #000 80%, transparent 100%);
+          mask-composite: intersect;
+}
+
+/* services list with a photo beside it */
+.with-figure { display: grid; grid-template-columns: minmax(0, 1.55fr) minmax(0, .75fr); gap: clamp(2rem, 5vw, 5rem); align-items: start; }
+.with-figure .photo { position: sticky; top: 110px; }
+@media (max-width: 900px) {
+  .with-figure { grid-template-columns: 1fr; }
+  .with-figure .photo { position: static; max-width: 420px; }
+}
+.prose .photo { margin: 2.8rem 0; max-width: 460px; }
+
+/* Le cabinet: portrait beside the founder's words */
+.founder { display: grid; grid-template-columns: minmax(0, .85fr) minmax(0, 1.15fr); gap: clamp(2rem, 5vw, 5rem); align-items: center; }
+.founder .manifesto { font-size: clamp(1.8rem, 3.2vw, 3.2rem); }
+.founder .signature { margin-left: 0; }
+@media (max-width: 860px) { .founder { grid-template-columns: 1fr; } .founder .cutout { max-width: 420px; } }
+
+/* Contact: who you will be speaking to */
+.contact-portrait { max-width: 260px; margin-bottom: 2.4rem; }
+.contact-portrait img {
+  -webkit-mask-image: linear-gradient(to bottom, #000 55%, transparent 100%);
+          mask-image: linear-gradient(to bottom, #000 55%, transparent 100%);
+}
+.contact-portrait figcaption { margin-top: -1.2rem; position: relative; font: var(--label); color: var(--brume); }
+.contact-portrait figcaption span { display: block; font-family: var(--f-display); font-style: italic; font-size: 1.5rem; color: var(--or-pale); }
