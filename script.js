@@ -271,6 +271,8 @@
   var seaC = document.getElementById('sea');
   var cta = document.getElementById('hero-cta');
   var riskEls = Array.prototype.slice.call(document.querySelectorAll('#risks li'));
+  var keeperEl = document.getElementById('keeper');
+  var keeper = { ang: null, lit: -1 };
   var finePointer = window.matchMedia('(hover: hover) and (pointer: fine)').matches;
 
   if (hero && seaC && seaC.getContext) {
@@ -293,6 +295,18 @@
       W = hr.width; H = hr.height;
       var lr = lampEl.getBoundingClientRect();
       lamp.x = lr.left - hr.left; lamp.y = lr.top - hr.top;
+
+      // The portrait: the beam brightens him when it crosses his face
+      if (keeperEl && keeperEl.offsetParent !== null) {
+        var kr = keeperEl.getBoundingClientRect();
+        keeper.ang = angleTo(kr.left + kr.width * 0.5 - hr.left, kr.top + kr.height * 0.16 - hr.top);
+        // dissolve his body exactly where the text column starts, whatever the screen size
+        var side = document.querySelector('.hero-side');
+        if (side && kr.height) {
+          var f = (side.getBoundingClientRect().top - kr.top) / kr.height - 0.04;
+          keeperEl.style.setProperty('--kfade', Math.max(0.18, Math.min(0.5, f)).toFixed(3));
+        }
+      } else { keeper.ang = null; }
 
       risks = riskEls.filter(function (el) { return el.offsetParent !== null; }).map(function (el) {
         var r = el.getBoundingClientRect();
@@ -373,6 +387,12 @@
       // Pointer parallax on the stars
       par.x += (par.tx - par.x) * 0.05; par.y += (par.ty - par.y) * 0.05;
       if (starsEl) starsEl.style.transform = 'translate3d(' + (par.x * -10).toFixed(2) + 'px,' + (par.y * -6 - (window.scrollY || 0) * 0.12).toFixed(2) + 'px,0)';
+
+      if (keeperEl && keeper.ang !== null) {
+        var kd = aDiff(shown, keeper.ang) / 10;
+        var kl = Math.exp(-kd * kd) * power;
+        if (Math.abs(kl - keeper.lit) > 0.01) { keeperEl.style.setProperty('--kl', kl.toFixed(3)); keeper.lit = kl; }
+      }
 
       // Risks lit by the beam; once seen, they keep a faint trace and a ✦
       for (var i = 0; i < risks.length; i++) {

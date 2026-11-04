@@ -18,6 +18,7 @@
   <meta property="og:locale" content="fr_FR">
   <link rel="icon" type="image/png" href="assets/favicon-64.png">
   <link rel="apple-touch-icon" href="assets/apple-touch-icon.png">
+  <link rel="preload" href="/assets/portrait-emmanuel.webp" as="image" type="image/webp" fetchpriority="high">
   <link rel="preload" href="/fonts/cormorant.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="preload" href="/fonts/cormorant-italic.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="preload" href="/fonts/hanken-grotesk.woff2" as="font" type="font/woff2" crossorigin>
@@ -77,17 +78,18 @@
     <section class="prologue" id="prologue" aria-labelledby="motto">
       <div class="sky" aria-hidden="true">
         <div class="stars"></div>
+        <div class="keeper" id="keeper"><img src="/assets/portrait-emmanuel.webp" alt="" width="535" height="1074" fetchpriority="high" decoding="async"></div>
         <div class="beam" id="beam"><div class="beam-haze"></div><div class="beam-core"></div></div>
         <canvas class="dust" id="dust"></canvas>
         <ul class="risks" id="risks">
-          <li style="--x:62%;--y:13%;--mx:46%;--my:9.6%">Imprévu</li>
-          <li style="--x:89%;--y:15%;--mx:12%;--my:10.2%">Intrusion</li>
-          <li style="--x:94%;--y:39%;--mx:78%;--my:11.4%">Conflit</li>
-          <li style="--x:79%;--y:27%">Vie privée</li>
-          <li style="--x:46%;--y:7.5%">Incident</li>
-          <li style="--x:31%;--y:12%">Déplacement sensible</li>
-          <li style="--x:70%;--y:6%">Accès</li>
-          <li style="--x:40%;--y:19%">Vulnérabilité</li>
+          <li style="--x:64%;--y:8%;--mx:46%;--my:9.6%">Imprévu</li>
+          <li style="--x:18%;--y:9%;--mx:12%;--my:10.2%">Intrusion</li>
+          <li style="--x:69%;--y:32%;--mx:78%;--my:11.4%">Conflit</li>
+          <li style="--x:61%;--y:19%">Vie privée</li>
+          <li style="--x:47%;--y:7%">Incident</li>
+          <li style="--x:32%;--y:14%">Déplacement sensible</li>
+          <li style="--x:56%;--y:15%">Accès</li>
+          <li style="--x:40%;--y:16.5%">Vulnérabilité</li>
         </ul>
       </div>
 
