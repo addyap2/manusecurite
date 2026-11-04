@@ -1270,3 +1270,32 @@ em { font-style: italic; }
 }
 .contact-portrait figcaption { margin-top: -1.2rem; position: relative; font: var(--label); color: var(--brume); }
 .contact-portrait figcaption span { display: block; font-family: var(--f-display); font-style: italic; font-size: 1.5rem; color: var(--or-pale); }
+
+/* =========================================================
+   INNER PAGE HEROES — the founder in the night, as on the home page
+   (inherits the .keeper look: black and white, screen blend, vignette)
+   ========================================================= */
+.keeper-page {
+  z-index: -2;                                   /* behind the beam (::before at -1) */
+  left: 64%; top: 56px; height: 132%;
+}
+/* each photo keeps its own proportions, so the box is never squeezed by the screen edge */
+.keeper-tux { aspect-ratio: 538 / 979; }
+.keeper-jacket { aspect-ratio: 535 / 1074; }
+.keeper-suit { aspect-ratio: 862 / 771; }
+.keeper-heli { aspect-ratio: 496 / 700; }
+/* the suit close-up and the helicopter photo are wider and tighter: smaller and higher */
+.keeper-suit { height: 104%; top: 40px; }
+.keeper-heli { height: 112%; top: 30px; left: 66%; }
+@media (min-width: 761px) { .keeper-jacket { left: 77%; } .keeper-suit { left: 71%; } }
+.page-hero.compact .keeper-page { height: 150%; }
+.page-hero.compact .keeper-suit { height: 118%; }
+.page-hero.compact .keeper-heli { height: 128%; }
+
+@media (max-width: 760px) {
+  .keeper-page { left: 70%; top: 48px; height: 112%; }
+  .keeper-suit { height: 84%; }
+  .keeper-heli { height: 92%; }
+  .page-hero.compact .keeper-page { height: 118%; }
+  .page-hero.compact .keeper-suit, .page-hero.compact .keeper-heli { height: 96%; }
+}
