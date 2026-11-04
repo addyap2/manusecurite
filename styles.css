@@ -1204,7 +1204,8 @@ em { font-style: italic; }
    Black and white, standing on the horizon, behind the beam.
    ========================================================= */
 .keeper {
-  position: absolute; right: 2.5vw; top: 40px; bottom: var(--lamp-y);
+  position: absolute; right: 3.5vw; top: 48px;
+  height: calc((100% - var(--lamp-y) - 48px) * .86);
   aspect-ratio: 535 / 1074; pointer-events: none;
   transform: translate3d(0, calc(var(--py, 0) * 0.08px), 0);
 }
