@@ -300,12 +300,6 @@
       if (keeperEl && keeperEl.offsetParent !== null) {
         var kr = keeperEl.getBoundingClientRect();
         keeper.ang = angleTo(kr.left + kr.width * 0.5 - hr.left, kr.top + kr.height * 0.16 - hr.top);
-        // dissolve his body exactly where the text column starts, whatever the screen size
-        var side = document.querySelector('.hero-side');
-        if (side && kr.height) {
-          var f = (side.getBoundingClientRect().top - kr.top) / kr.height - 0.04;
-          keeperEl.style.setProperty('--kfade', Math.max(0.18, Math.min(0.5, f)).toFixed(3));
-        }
       } else { keeper.ang = null; }
 
       risks = riskEls.filter(function (el) { return el.offsetParent !== null; }).map(function (el) {
