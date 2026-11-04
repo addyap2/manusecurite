@@ -1299,3 +1299,7 @@ em { font-style: italic; }
   .page-hero.compact .keeper-page { height: 118%; }
   .page-hero.compact .keeper-suit, .page-hero.compact .keeper-heli { height: 96%; }
 }
+
+/* Contact: the person you will speak to, by name */
+.contact-name { margin-bottom: 2.2rem; font: var(--label); color: var(--brume); }
+.contact-name span { display: block; font-family: var(--f-display); font-style: italic; font-size: 1.7rem; color: var(--or-pale); }
