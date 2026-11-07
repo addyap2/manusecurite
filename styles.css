@@ -1067,10 +1067,14 @@ em { font-style: italic; }
   background: var(--or); transform: scaleX(var(--rp, 0)); transform-origin: left;
 }
 /* future photography: "develops" in the dark */
-.media-reveal { overflow: hidden; clip-path: inset(100% 0 0 0); transition: clip-path var(--dur-cinematic) var(--ease); }
-.media-reveal img { transform: scale(1.08); transition: transform 2.4s var(--ease); }
-.media-reveal.in { clip-path: inset(0); }
-.media-reveal.in img { transform: none; }
+/* the mask sits on the image, never on the observed frame: a fully clipped
+   element has no visible area, so the scroll observer would never reveal it */
+.media-reveal { overflow: hidden; }
+.js .media-reveal img {
+  clip-path: inset(100% 0 0 0); transform: scale(1.08);
+  transition: clip-path var(--dur-cinematic) var(--ease), transform 2.4s var(--ease);
+}
+.js .media-reveal.in img { clip-path: inset(0); transform: none; }
 
 /* ---- 6. Reduced motion: everything readable, nothing moves ---- */
 @media (prefers-reduced-motion: reduce) {
@@ -1080,8 +1084,7 @@ em { font-style: italic; }
   .js .page-hero::after, .js .page-hero::before { opacity: 1; transform: none; animation: none !important; }
   .page-hero::before { translate: none; }
   .read-progress { display: none; }
-  .media-reveal { clip-path: none; }
-  .media-reveal img { transform: none; }
+  .js .media-reveal img { clip-path: none; transform: none; transition: none; }
 }
 
 /* =========================================================
