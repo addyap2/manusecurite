@@ -21,7 +21,7 @@
   <link rel="preload" href="/fonts/cormorant.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="preload" href="/fonts/cormorant-italic.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="preload" href="/fonts/hanken-grotesk.woff2" as="font" type="font/woff2" crossorigin>
-  <link rel="stylesheet" href="/styles.css?v=20261107d">
+  <link rel="stylesheet" href="/styles.css?v=20261107e">
   <script>document.documentElement.classList.add('js');</script>
 </head>
 <body>
@@ -72,7 +72,7 @@
           <p class="contact-name" data-reveal><span>Emmanuel Thorelle</span>Votre interlocuteur</p>
           <a class="phone" href="tel:+33613734252" data-reveal><span class="phone-label">Appeler</span><span class="phone-number">06&nbsp;13&nbsp;73&nbsp;42&nbsp;52</span></a>
           <a class="mail" href="mailto:providencecotedazur@gmail.com" data-reveal>providencecotedazur@gmail.com</a>
-          <p class="aube-text" data-reveal style="margin-top:2.6rem">Vous préférez écrire ? Le formulaire ouvre votre messagerie avec votre demande pré-remplie : rien n'est enregistré sur ce site.</p>
+          <p class="aube-text" data-reveal style="margin-top:2.6rem">Vous préférez écrire ? Le formulaire envoie votre demande directement à Emmanuel Thorelle, par e-mail : rien n'est conservé sur ce site.</p>
         </div>
 
         <form class="ledger" id="contact-form" novalidate data-reveal>
@@ -84,9 +84,10 @@
           <label class="ledger-field"><span>Nom</span><input name="nom" type="text" autocomplete="name" required></label>
           <label class="ledger-field"><span>Téléphone ou e-mail</span><input name="coord" type="text" autocomplete="email" required></label>
           <label class="ledger-field"><span>Votre besoin <em>(facultatif)</em></span><textarea name="message" rows="4"></textarea></label>
+          <label class="hp" aria-hidden="true">Laisser vide <input name="site" type="text" tabindex="-1" autocomplete="off"></label>
           <p class="form-error" role="alert" hidden>Merci d'indiquer votre nom et un moyen de vous recontacter.</p>
           <button class="ledger-submit" type="submit"><span>Envoyer la demande</span><i aria-hidden="true"></i></button>
-          <p class="form-note">Votre messagerie s'ouvrira avec la demande pré-remplie.</p>
+          <p class="form-note">Votre demande est envoyée directement et reste confidentielle.</p>
         </form>
       </div>
     </section>
@@ -127,6 +128,6 @@
     <a class="dock-cta" href="/contact/">Premier échange</a>
   </nav>
 
-  <script src="/script.js?v=20261107d" defer></script>
+  <script src="/script.js?v=20261107e" defer></script>
 </body>
 </html>

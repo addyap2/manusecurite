@@ -51,3 +51,12 @@ Voir la checklist complète dans `docs/LAUNCH-AUDIT.md`.
 - [ ] Logo en haute résolution (actuel extrait de la carte de visite)
 - [ ] Nom de domaine et adresse e-mail professionnelle
 - [ ] Remplacer le formulaire `mailto:` par un service d'envoi (Formspree, Netlify Forms…) si souhaité
+
+## Formulaire de contact (Resend)
+
+Le formulaire (accueil et /contact/) envoie la demande à `api/contact.js`, une fonction Vercel qui l'expédie par e-mail via Resend. Si l'envoi échoue, ou tant que Resend n'est pas configuré, le site ouvre la messagerie du visiteur avec la demande pré-remplie.
+
+Variables d'environnement Vercel :
+- `RESEND_API_KEY` (obligatoire)
+- `CONTACT_TO` : destinataire(s), séparés par des virgules (défaut : providencecotedazur@gmail.com)
+- `CONTACT_FROM` : expéditeur, sur un domaine vérifié dans Resend (défaut : `Site Thorelle <contact@thorellesurete.fr>`)

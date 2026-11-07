@@ -1403,3 +1403,12 @@ em { font-style: italic; }
 .foot-legal p a:hover { text-decoration-color: var(--or); }
 /* over the ivory reading page the header needs a solid night bar */
 .article-page .bridge::before { inset: 0; background: rgba(5, 12, 24, .96); border-bottom: 1px solid var(--hair-soft); }
+
+/* ===== CONTACT FORM: sending and confirmation ===== */
+.hp { position: absolute; left: -9999px; width: 1px; height: 1px; overflow: hidden; }
+.ledger { position: relative; }
+.ledger-submit:disabled { cursor: progress; filter: saturate(.6) brightness(.9); }
+.form-done { padding: clamp(1.6rem, 4vw, 2.4rem) 0; border-top: 1px solid rgba(212, 176, 102, .45); outline: none; }
+.form-done p { color: var(--brume); margin: 0 0 .8rem; max-width: 34rem; }
+.form-done .form-done-title { font-family: "Cormorant", serif; font-style: italic; font-size: clamp(1.8rem, 3.4vw, 2.4rem); color: var(--or-pale); margin-bottom: 1rem; }
+.form-done a { color: var(--or-pale); }

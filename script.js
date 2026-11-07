@@ -559,9 +559,52 @@
         return;
       }
       errorEl.hidden = true;
+      if (sending) return;
       var profil = form.querySelector('input[name="profil"]:checked').value;
-      var subject = 'Demande de contact (' + profil + ') : ' + nom;
-      var body = 'Nom : ' + nom + '\nProfil : ' + profil + '\nContact : ' + coord + '\n\n' + form.message.value.trim();
+      var data = { profil: profil, nom: nom, coord: coord, message: form.message.value.trim(), site: form.site ? form.site.value : '' };
+
+      var btn = form.querySelector('.ledger-submit');
+      var label = btn && btn.querySelector('span');
+      var original = label ? label.textContent : '';
+      sending = true;
+      btn.disabled = true; btn.setAttribute('aria-busy', 'true');
+      if (label) label.textContent = 'Envoi en cours…';
+
+      fetch('/api/contact', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(data)
+      }).then(function (r) {
+        if (!r.ok) throw new Error('status ' + r.status);
+        return r.json();
+      }).then(function (out) {
+        if (!out || !out.ok) throw new Error('not ok');
+        showSent(nom);
+      }).catch(function () {
+        // Sending failed (or Resend isn't set up yet): use the visitor's mail app instead
+        btn.disabled = false; btn.removeAttribute('aria-busy');
+        if (label) label.textContent = original;
+        openMail(data);
+      }).then(function () { sending = false; });
+    });
+
+    var sending = false;
+
+    function showSent(nom) {
+      var done = document.createElement('div');
+      done.className = 'form-done';
+      done.setAttribute('role', 'status');
+      done.setAttribute('tabindex', '-1');
+      done.innerHTML = '<p class="form-done-title">Merci, ' + nom.replace(/[&<>"']/g, '') + '.</p>' +
+        '<p>Votre demande est bien partie. Emmanuel Thorelle vous recontacte rapidement, en toute confidentialité.</p>' +
+        '<p>Pour une situation urgente : <a href="tel:+33613734252">06 13 73 42 52</a>.</p>';
+      form.replaceWith(done);
+      done.focus({ preventScroll: true });
+    }
+
+    function openMail(data) {
+      var subject = 'Demande de contact (' + data.profil + ') : ' + data.nom;
+      var body = 'Nom : ' + data.nom + '\nProfil : ' + data.profil + '\nContact : ' + data.coord + '\n\n' + data.message;
       window.location.href = 'mailto:providencecotedazur@gmail.com?subject=' +
         encodeURIComponent(subject) + '&body=' + encodeURIComponent(body);
 
@@ -571,27 +614,18 @@
         help = document.createElement('div');
         help.className = 'form-sent';
         help.setAttribute('role', 'status');
-        help.innerHTML = 'Votre messagerie devrait s\u2019ouvrir avec votre demande. Rien ne s\u2019est passé\u00a0? ' +
-          'Appelez le <a href="tel:+33613734252">06\u00a013\u00a073\u00a042\u00a052</a> ou écrivez à ' +
+        help.innerHTML = 'L’envoi direct n’a pas fonctionné, votre messagerie devrait s’ouvrir avec votre demande. Rien ne s’est passé ? ' +
+          'Appelez le <a href="tel:+33613734252">06 13 73 42 52</a> ou écrivez à ' +
           '<a href="mailto:providencecotedazur@gmail.com">providencecotedazur@gmail.com</a>.<br>' +
-          '<button type="button">Copier l\u2019adresse e-mail</button>';
+          '<button type="button">Copier l’adresse e-mail</button>';
         form.appendChild(help);
         help.querySelector('button').addEventListener('click', function () {
           var b = this;
-          var done = function () { b.textContent = 'Adresse copiée'; };
-          if (navigator.clipboard) navigator.clipboard.writeText('providencecotedazur@gmail.com').then(done, function () {});
+          var ok = function () { b.textContent = 'Adresse copiée'; };
+          if (navigator.clipboard) navigator.clipboard.writeText('providencecotedazur@gmail.com').then(ok, function () {});
         });
       }
-
-      // Confirm what just happened, then return to normal
-      var btn = form.querySelector('.ledger-submit');
-      var label = btn && btn.querySelector('span');
-      if (label) {
-        var original = label.textContent;
-        btn.classList.add('sent'); label.textContent = 'Messagerie ouverte ✓';
-        setTimeout(function () { btn.classList.remove('sent'); label.textContent = original; }, 5000);
-      }
-    });
+    }
   }
 
   var year = document.getElementById('year');
