@@ -1329,3 +1329,28 @@ em { font-style: italic; }
 /* the helicopter photo beside the services: smaller and quieter too */
 .with-figure .photo { max-width: 240px; justify-self: end; }
 .with-figure .photo img { opacity: .4; filter: brightness(.9); }
+
+/* =========================================================
+   FLAT NAVIGATION — visible links on desktop, overlay menu below 1100px
+   ========================================================= */
+.topnav { display: none; }
+@media (min-width: 1100px) {
+  .topnav { display: flex; align-items: center; gap: clamp(1.3rem, 2.1vw, 2.4rem); margin: 0 auto; }
+  .topnav a {
+    position: relative; display: inline-flex; align-items: center; min-height: 44px;
+    font: 500 .92rem/1 var(--f-body); letter-spacing: .01em; color: var(--ivoire); text-decoration: none;
+    opacity: .82; transition: opacity var(--dur-quick) var(--ease-soft), color var(--dur-quick) var(--ease-soft);
+  }
+  .topnav a::after {
+    content: ""; position: absolute; left: 0; right: 0; bottom: 9px; height: 1px; background: var(--or);
+    transform: scaleX(0); transform-origin: left; transition: transform var(--dur-slow) var(--ease);
+  }
+  .topnav a:hover { opacity: 1; }
+  .topnav a:hover::after { transform: scaleX(1); }
+  .topnav a[aria-current="page"] { opacity: 1; color: var(--or-pale); }
+  .topnav a[aria-current="page"]::after { transform: scaleX(1); }
+  .menu-btn { display: none; }
+  .mark-name { white-space: nowrap; }
+}
+/* on narrower desktops the watch clock steps aside to make room */
+@media (min-width: 1100px) and (max-width: 1379px) { .clock { display: none; } }
