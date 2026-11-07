@@ -3,6 +3,7 @@
 // Vercel environment variables:
 //   RESEND_API_KEY  required. Without it the endpoint answers 503 and the site falls back to the mail app.
 //   CONTACT_TO      where requests are delivered (default: providencecotedazur@gmail.com)
+//   CONTACT_BCC     hidden copy of every request (default: antony@antonyaddy.com; set to "none" to switch off)
 //   CONTACT_FROM    sender, on a domain verified in Resend (default: Cabinet Thorelle Conseils <contact@thorellesurete.fr>)
 
 const crypto = require('crypto');
@@ -127,6 +128,9 @@ module.exports = async function handler(req, res) {
   const from = process.env.CONTACT_FROM || 'Cabinet Thorelle Conseils <contact@thorellesurete.fr>';
   const to = (process.env.CONTACT_TO || 'providencecotedazur@gmail.com').split(',').map((s) => s.trim()).filter(Boolean);
 
+  const bccEnv = process.env.CONTACT_BCC || 'antony@antonyaddy.com';
+  const bcc = bccEnv === 'none' ? [] : bccEnv.split(',').map((s) => s.trim()).filter(Boolean);
+
   const send = (payload) => fetch('https://api.resend.com/emails', {
     method: 'POST',
     headers: { Authorization: `Bearer ${key}`, 'Content-Type': 'application/json' },
@@ -135,7 +139,7 @@ module.exports = async function handler(req, res) {
 
   try {
     const n = emails.notification({ nom, profil, coord, message, isEmail, phoneDigits, receivedAt });
-    const r = await send({ to, subject: n.subject, html: n.html, text: n.text, ...(isEmail ? { reply_to: coord } : {}) });
+    const r = await send({ to, ...(bcc.length ? { bcc } : {}), subject: n.subject, html: n.html, text: n.text, ...(isEmail ? { reply_to: coord } : {}) });
     if (!r.ok) {
       console.error('Resend error', r.status, await r.text());
       return res.status(502).json({ ok: false, error: 'send_failed' });
