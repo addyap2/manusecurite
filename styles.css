@@ -1313,14 +1313,14 @@ em { font-style: italic; }
   -webkit-mask-image: radial-gradient(ellipse 54% 40% at 50% 28%, #000 25%, rgba(0,0,0,.35) 60%, transparent 85%);
           mask-image: radial-gradient(ellipse 54% 40% at 50% 28%, #000 25%, rgba(0,0,0,.35) 60%, transparent 85%);
 }
-.js.is-ready .keeper img { opacity: .13; }
+.js.is-ready .keeper img { opacity: .32; }
 .js.is-ready .keeper-page img { opacity: .11; }
 @media (max-width: 760px) {
-  .js.is-ready .keeper img { opacity: .1; }
+  .js.is-ready .keeper img { opacity: .24; }
   .js.is-ready .keeper-page img { opacity: .09; }
 }
 @media (prefers-reduced-motion: reduce) {
-  .js .keeper img { opacity: .13; }
+  .js .keeper img { opacity: .32; }
   .js .keeper-page img { opacity: .11; }
 }
 /* the helicopter photo beside the services: smaller and quieter too */
