@@ -637,7 +637,7 @@
     function openMail(data) {
       var subject = 'Demande de contact (' + data.profil + ') : ' + data.nom;
       var body = 'Nom : ' + data.nom + '\nProfil : ' + data.profil + '\nContact : ' + data.coord + '\n\n' + data.message;
-      window.location.href = 'mailto:contact.bodyguard@gmail.com,providencecotedazur@gmail.com?subject=' +
+      window.location.href = 'mailto:providencecotedazur@gmail.com?subject=' +
         encodeURIComponent(subject) + '&body=' + encodeURIComponent(body);
 
       // In case no mail app is set up: offer the phone and a one-tap copy of the address
@@ -648,13 +648,13 @@
         help.setAttribute('role', 'status');
         help.innerHTML = 'L’envoi direct n’a pas fonctionné, votre messagerie devrait s’ouvrir avec votre demande. Rien ne s’est passé ? ' +
           'Appelez le <a href="tel:+33613734252">06 13 73 42 52</a> ou écrivez à ' +
-          '<a href="mailto:contact.bodyguard@gmail.com">contact.bodyguard@gmail.com</a>.<br>' +
+          '<a href="mailto:providencecotedazur@gmail.com">providencecotedazur@gmail.com</a>.<br>' +
           '<button type="button">Copier l’adresse e-mail</button>';
         form.appendChild(help);
         help.querySelector('button').addEventListener('click', function () {
           var b = this;
           var ok = function () { b.textContent = 'Adresse copiée'; };
-          if (navigator.clipboard) navigator.clipboard.writeText('contact.bodyguard@gmail.com').then(ok, function () {});
+          if (navigator.clipboard) navigator.clipboard.writeText('providencecotedazur@gmail.com').then(ok, function () {});
         });
       }
     }

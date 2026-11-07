@@ -2,7 +2,7 @@
 //
 // Vercel environment variables:
 //   RESEND_API_KEY  required. Without it the endpoint answers 503 and the site falls back to the mail app.
-//   CONTACT_TO      where requests are delivered (default: contact.bodyguard@gmail.com and providencecotedazur@gmail.com)
+//   CONTACT_TO      where requests are delivered (default: providencecotedazur@gmail.com)
 //   CONTACT_FROM    sender, on a domain verified in Resend (default: Cabinet Thorelle Conseils <contact@thorellesurete.fr>)
 
 const crypto = require('crypto');
@@ -125,7 +125,7 @@ module.exports = async function handler(req, res) {
   const phoneDigits = !isEmail && digits.replace(/\D/g, '').length >= 9 ? digits : '';
   const receivedAt = new Intl.DateTimeFormat('fr-FR', { dateStyle: 'full', timeStyle: 'short', timeZone: 'Europe/Paris' }).format(new Date());
   const from = process.env.CONTACT_FROM || 'Cabinet Thorelle Conseils <contact@thorellesurete.fr>';
-  const to = (process.env.CONTACT_TO || 'contact.bodyguard@gmail.com,providencecotedazur@gmail.com').split(',').map((s) => s.trim()).filter(Boolean);
+  const to = (process.env.CONTACT_TO || 'providencecotedazur@gmail.com').split(',').map((s) => s.trim()).filter(Boolean);
 
   const send = (payload) => fetch('https://api.resend.com/emails', {
     method: 'POST',
