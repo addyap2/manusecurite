@@ -59,7 +59,7 @@ Le formulaire (accueil et /contact/) envoie la demande à `api/contact.js`, une 
 Variables d'environnement Vercel :
 - `RESEND_API_KEY` (obligatoire)
 - `CONTACT_TO` : destinataire(s), séparés par des virgules (défaut : providencecotedazur@gmail.com)
-- `CONTACT_BCC` : copie cachée de chaque demande (défaut : antony@antonyaddy.com ; `none` pour désactiver)
+- `CONTACT_BCC` (facultatif) : copie cachée de chaque demande
 - `CONTACT_FROM` : expéditeur, sur un domaine vérifié dans Resend (défaut : `Cabinet Thorelle Conseils <contact@thorellesurete.fr>`). Le visiteur reçoit aussi un e-mail de confirmation s'il a laissé une adresse e-mail.
 
 ### Sécurité du formulaire

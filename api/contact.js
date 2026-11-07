@@ -3,7 +3,7 @@
 // Vercel environment variables:
 //   RESEND_API_KEY  required. Without it the endpoint answers 503 and the site falls back to the mail app.
 //   CONTACT_TO      where requests are delivered (default: providencecotedazur@gmail.com)
-//   CONTACT_BCC     hidden copy of every request (default: antony@antonyaddy.com; set to "none" to switch off)
+//   CONTACT_BCC     optional hidden copy of every request (comma-separated)
 //   CONTACT_FROM    sender, on a domain verified in Resend (default: Cabinet Thorelle Conseils <contact@thorellesurete.fr>)
 
 const crypto = require('crypto');
@@ -128,8 +128,7 @@ module.exports = async function handler(req, res) {
   const from = process.env.CONTACT_FROM || 'Cabinet Thorelle Conseils <contact@thorellesurete.fr>';
   const to = (process.env.CONTACT_TO || 'providencecotedazur@gmail.com').split(',').map((s) => s.trim()).filter(Boolean);
 
-  const bccEnv = process.env.CONTACT_BCC || 'antony@antonyaddy.com';
-  const bcc = bccEnv === 'none' ? [] : bccEnv.split(',').map((s) => s.trim()).filter(Boolean);
+  const bcc = (process.env.CONTACT_BCC || '').split(',').map((s) => s.trim()).filter((s) => s && s !== 'none');
 
   const send = (payload) => fetch('https://api.resend.com/emails', {
     method: 'POST',
