@@ -2,7 +2,7 @@
 //
 // Vercel environment variables:
 //   RESEND_API_KEY  required. Without it the endpoint answers 503 and the site falls back to the mail app.
-//   CONTACT_TO      where requests are delivered (default: contact.bodyguard@gmail.com)
+//   CONTACT_TO      where requests are delivered (default: contact.bodyguard@gmail.com and providencecotedazur@gmail.com)
 //   CONTACT_FROM    sender, on a domain verified in Resend (default: Site Thorelle <contact@thorellesurete.fr>)
 
 const MAX = { nom: 120, coord: 200, message: 5000 };
@@ -48,7 +48,7 @@ module.exports = async function handler(req, res) {
       headers: { Authorization: `Bearer ${key}`, 'Content-Type': 'application/json' },
       body: JSON.stringify({
         from: process.env.CONTACT_FROM || 'Site Thorelle <contact@thorellesurete.fr>',
-        to: (process.env.CONTACT_TO || 'contact.bodyguard@gmail.com').split(',').map((s) => s.trim()),
+        to: (process.env.CONTACT_TO || 'contact.bodyguard@gmail.com,providencecotedazur@gmail.com').split(',').map((s) => s.trim()),
         subject,
         text,
         html,

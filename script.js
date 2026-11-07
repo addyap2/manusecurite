@@ -605,7 +605,7 @@
     function openMail(data) {
       var subject = 'Demande de contact (' + data.profil + ') : ' + data.nom;
       var body = 'Nom : ' + data.nom + '\nProfil : ' + data.profil + '\nContact : ' + data.coord + '\n\n' + data.message;
-      window.location.href = 'mailto:contact.bodyguard@gmail.com?subject=' +
+      window.location.href = 'mailto:contact.bodyguard@gmail.com,providencecotedazur@gmail.com?subject=' +
         encodeURIComponent(subject) + '&body=' + encodeURIComponent(body);
 
       // In case no mail app is set up: offer the phone and a one-tap copy of the address
