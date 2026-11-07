@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://manusecurite.vercel.app/sitemap.xml
+Sitemap: https://www.thorellesurete.fr/sitemap.xml

@@ -45,7 +45,7 @@ Voir la checklist complète dans `docs/LAUNCH-AUDIT.md`.
 
 - [ ] Compléter `mentions-legales/index.html` (forme juridique, SIRET, adresse, CNAPS si applicable)
 - [ ] Faire relire les articles du journal et les réponses de la FAQ par Emmanuel Thorelle
-- [ ] Remplacer `manusecurite.vercel.app` par le nom de domaine définitif (pages, `sitemap.xml`, `robots.txt`)
+- [x] Nom de domaine : www.thorellesurete.fr (thorellesurete.fr redirige vers www)
 - [ ] Zone d'intervention (ville / région)
 - [ ] Photo et parcours d'Emmanuel Thorelle
 - [ ] Logo en haute résolution (actuel extrait de la carte de visite)
