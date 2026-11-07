@@ -3,12 +3,13 @@
 // Vercel environment variables:
 //   RESEND_API_KEY  required. Without it the endpoint answers 503 and the site falls back to the mail app.
 //   CONTACT_TO      where requests are delivered (default: contact.bodyguard@gmail.com and providencecotedazur@gmail.com)
-//   CONTACT_FROM    sender, on a domain verified in Resend (default: Site Thorelle <contact@thorellesurete.fr>)
+//   CONTACT_FROM    sender, on a domain verified in Resend (default: Cabinet Thorelle Conseils <contact@thorellesurete.fr>)
+
+const emails = require('./_emails');
 
 const MAX = { nom: 120, coord: 200, message: 5000 };
 const PROFILS = ['Entreprise', 'Particulier'];
 
-const esc = (s) => s.replace(/[&<>"']/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
 const clean = (v, max) => (typeof v === 'string' ? v.trim().slice(0, max) : '');
 
 module.exports = async function handler(req, res) {
@@ -34,30 +35,35 @@ module.exports = async function handler(req, res) {
   if (!key) return res.status(503).json({ ok: false, error: 'not_configured' });
 
   const isEmail = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(coord);
-  const subject = `Demande de contact (${profil}) : ${nom}`;
-  const text = `Nom : ${nom}\nProfil : ${profil}\nContact : ${coord}\n\n${message || '(pas de message)'}`;
-  const html =
-    `<p><strong>Nom :</strong> ${esc(nom)}<br><strong>Profil :</strong> ${esc(profil)}<br>` +
-    `<strong>Contact :</strong> ${esc(coord)}</p>` +
-    `<p style="white-space:pre-wrap">${message ? esc(message) : '<em>(pas de message)</em>'}</p>` +
-    `<p style="color:#888;font-size:12px">Envoyé depuis le formulaire de www.thorellesurete.fr</p>`;
+  const digits = coord.replace(/[^\d+]/g, '');
+  const phoneDigits = !isEmail && digits.replace(/\D/g, '').length >= 9 ? digits : '';
+  const receivedAt = new Intl.DateTimeFormat('fr-FR', { dateStyle: 'full', timeStyle: 'short', timeZone: 'Europe/Paris' }).format(new Date());
+  const from = process.env.CONTACT_FROM || 'Cabinet Thorelle Conseils <contact@thorellesurete.fr>';
+  const to = (process.env.CONTACT_TO || 'contact.bodyguard@gmail.com,providencecotedazur@gmail.com').split(',').map((s) => s.trim()).filter(Boolean);
+
+  const send = (payload) => fetch('https://api.resend.com/emails', {
+    method: 'POST',
+    headers: { Authorization: `Bearer ${key}`, 'Content-Type': 'application/json' },
+    body: JSON.stringify({ from, ...payload }),
+  });
 
   try {
-    const r = await fetch('https://api.resend.com/emails', {
-      method: 'POST',
-      headers: { Authorization: `Bearer ${key}`, 'Content-Type': 'application/json' },
-      body: JSON.stringify({
-        from: process.env.CONTACT_FROM || 'Site Thorelle <contact@thorellesurete.fr>',
-        to: (process.env.CONTACT_TO || 'contact.bodyguard@gmail.com,providencecotedazur@gmail.com').split(',').map((s) => s.trim()),
-        subject,
-        text,
-        html,
-        ...(isEmail ? { reply_to: coord } : {}),
-      }),
-    });
+    const n = emails.notification({ nom, profil, coord, message, isEmail, phoneDigits, receivedAt });
+    const r = await send({ to, subject: n.subject, html: n.html, text: n.text, ...(isEmail ? { reply_to: coord } : {}) });
     if (!r.ok) {
       console.error('Resend error', r.status, await r.text());
       return res.status(502).json({ ok: false, error: 'send_failed' });
+    }
+
+    // Confirmation to the visitor. Never echoes their message, and drops the name if it looks like a link,
+    // so the form can't be used to send arbitrary content to strangers.
+    if (isEmail) {
+      const safeName = /https?:|www\.|[<>@]|\.[a-z]{2,}\b/i.test(nom) ? '' : nom.split(/\s+/).slice(0, 3).join(' ').slice(0, 40);
+      const c = emails.confirmation({ greetingName: safeName, profil });
+      try {
+        const rc = await send({ to: [coord], subject: c.subject, html: c.html, text: c.text, reply_to: to[0] });
+        if (!rc.ok) console.error('Confirmation not sent', rc.status, await rc.text());
+      } catch (err) { console.error('Confirmation request failed', err); }
     }
     return res.status(200).json({ ok: true });
   } catch (err) {
