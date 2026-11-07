@@ -60,3 +60,14 @@ Variables d'environnement Vercel :
 - `RESEND_API_KEY` (obligatoire)
 - `CONTACT_TO` : destinataire(s), séparés par des virgules (défaut : contact.bodyguard@gmail.com et providencecotedazur@gmail.com)
 - `CONTACT_FROM` : expéditeur, sur un domaine vérifié dans Resend (défaut : `Cabinet Thorelle Conseils <contact@thorellesurete.fr>`). Le visiteur reçoit aussi un e-mail de confirmation s'il a laissé une adresse e-mail.
+
+### Sécurité du formulaire
+
+- Requêtes acceptées uniquement depuis le site (vérification de l'origine, JSON obligatoire, taille limitée).
+- Jeton signé et horodaté : le formulaire le demande à l'affichage ; envoi refusé sans jeton valide, moins de 2 s après, ou après 2 h.
+- Champ piège invisible pour les robots.
+- Limites : 5 envois par IP par 10 min, 2 e-mails de confirmation par adresse par heure (mémoire de la fonction, remise à zéro à chaque nouvelle instance).
+- Validation : vrai e-mail ou numéro de téléphone, pas de retour à la ligne dans les champs courts, messages bourrés de liens refusés. Le message du visiteur n'est jamais renvoyé dans l'e-mail de confirmation.
+- `FORM_SECRET` (facultatif) : clé de signature des jetons ; à défaut, la clé Resend est utilisée.
+- Recommandé : dans Vercel, Firewall → règle de limitation sur `/api/contact` (par ex. 10 requêtes / minute / IP) pour une limite stricte.
+

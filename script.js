@@ -570,10 +570,18 @@
       btn.disabled = true; btn.setAttribute('aria-busy', 'true');
       if (label) label.textContent = 'Envoi en cours…';
 
-      fetch('/api/contact/', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(data)
+      getToken().then(function (t) {
+        data.token = t.token;
+        // A form sent within 2 seconds of loading is treated as a bot: wait out the remainder
+        var wait = Math.max(0, 2300 - (Date.now() - t.at));
+        return new Promise(function (ok) { setTimeout(ok, wait); });
+      }).then(function () {
+        return fetch('/api/contact/', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          credentials: 'same-origin',
+          body: JSON.stringify(data)
+        });
       }).then(function (r) {
         if (!r.ok) throw new Error('status ' + r.status);
         return r.json();
@@ -589,6 +597,30 @@
     });
 
     var sending = false;
+
+    // Signed token from the server, fetched once the form is near the screen (anti-spam)
+    var tokenPromise = null;
+    function getToken() {
+      if (tokenPromise) {
+        return tokenPromise.then(function (t) {
+          if (t.token && Date.now() - t.at < 100 * 60 * 1000) return t;
+          tokenPromise = null; return getToken();
+        });
+      }
+      var at = Date.now();
+      tokenPromise = fetch('/api/contact/', { credentials: 'same-origin', headers: { Accept: 'application/json' } })
+        .then(function (r) { return r.ok ? r.json() : {}; })
+        .then(function (j) { return { token: j.token || '', at: at }; }, function () { return { token: '', at: at }; })
+        .then(function (t) { if (!t.token) tokenPromise = null; return t; });
+      return tokenPromise;
+    }
+    if ('IntersectionObserver' in window) {
+      var tio = new IntersectionObserver(function (entries) {
+        if (entries.some(function (e) { return e.isIntersecting; })) { getToken(); tio.disconnect(); }
+      }, { rootMargin: '600px 0px' });
+      tio.observe(form);
+    } else { getToken(); }
+    form.addEventListener('focusin', function () { getToken(); }, { once: true });
 
     function showSent(nom) {
       var done = document.createElement('div');
