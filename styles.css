@@ -1261,7 +1261,10 @@ em { font-style: italic; }
 .prose .photo { margin: 2.8rem 0; max-width: 460px; }
 
 /* Le cabinet: portrait beside the founder's words */
-.founder { max-width: 62rem; }
+.founder { display: grid; grid-template-columns: minmax(0, .7fr) minmax(0, 1.3fr); gap: clamp(2rem, 5vw, 5rem); align-items: center; }
+.founder .photo { max-width: 380px; }
+.founder .photo img { filter: brightness(.92); }
+@media (max-width: 860px) { .founder { grid-template-columns: 1fr; } .founder .photo { max-width: 320px; } }
 .founder .manifesto { font-size: clamp(1.8rem, 3.2vw, 3.2rem); }
 .founder .signature { margin-left: 0; }
 
