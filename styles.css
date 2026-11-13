@@ -1209,7 +1209,7 @@ em { font-style: italic; }
    edges dissolving into darkness, the headline over him.
    ========================================================= */
 .keeper {
-  position: absolute; left: 58%; top: 64px; height: 128%;
+  position: absolute; left: 58%; top: 64px; height: 92%;
   aspect-ratio: 535 / 1074; pointer-events: none;
   transform: translate3d(-50%, calc(var(--py, 0) * 0.12px), 0);
 }
@@ -1227,7 +1227,7 @@ em { font-style: italic; }
   transition: opacity 3s var(--ease-soft) .7s, transform 4s var(--ease) .7s;
 }
 @media (max-width: 760px) {
-  .keeper { left: 62%; top: 52px; height: 104%; }
+  .keeper { left: 62%; top: 52px; height: 76%; }
   .js.is-ready .keeper img { opacity: .48; }
 }
 @media (prefers-reduced-motion: reduce) {
@@ -1261,10 +1261,9 @@ em { font-style: italic; }
 .prose .photo { margin: 2.8rem 0; max-width: 460px; }
 
 /* Le cabinet: portrait beside the founder's words */
-.founder { display: grid; grid-template-columns: minmax(0, .85fr) minmax(0, 1.15fr); gap: clamp(2rem, 5vw, 5rem); align-items: center; }
+.founder { max-width: 62rem; }
 .founder .manifesto { font-size: clamp(1.8rem, 3.2vw, 3.2rem); }
 .founder .signature { margin-left: 0; }
-@media (max-width: 860px) { .founder { grid-template-columns: 1fr; } .founder .cutout { max-width: 420px; } }
 
 /* Contact: who you will be speaking to */
 .contact-portrait { max-width: 260px; margin-bottom: 2.4rem; }
