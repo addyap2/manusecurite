@@ -1293,6 +1293,7 @@ em { font-style: italic; }
   .with-figure .photo { position: static; max-width: 420px; }
 }
 .prose .photo { margin: 2.8rem 0; max-width: 460px; }
+.article-page .prose .photo figcaption { color: var(--ink-soft); }
 
 /* Le cabinet: portrait beside the founder's words */
 .founder { display: grid; grid-template-columns: minmax(0, .85fr) minmax(0, 1.15fr); gap: clamp(2rem, 5vw, 5rem); align-items: center; }
