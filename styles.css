@@ -1004,6 +1004,23 @@ em { font-style: italic; }
 .teaser > * { max-width: 1240px; }
 .teaser-foot { margin-top: 2.4rem; display: flex; flex-wrap: wrap; gap: .5rem 2.8rem; }
 
+/* ---------- Au quotidien (home) ---------- */
+.quotidien { padding: 0 var(--gutter) var(--chapter-pad) var(--gutter-left); }
+.quotidien > * { max-width: 1240px; }
+.quotidien-grid { display: grid; gap: clamp(2.2rem, 5vw, 4rem); align-items: center; }
+.quotidien-photo {
+  margin: 0; border-radius: 14px; overflow: hidden;
+  background: var(--nuit); border: 1px solid var(--hair);
+  box-shadow: 0 30px 70px -40px rgba(0, 0, 0, .9);
+}
+.quotidien-photo img { width: 100%; height: 100%; object-fit: cover; }
+.quotidien-copy .manifesto { font-size: clamp(1.9rem, 3.4vw, 3rem); }
+.quotidien-text { margin-top: 1.6rem; color: var(--brume); max-width: 46ch; }
+.quotidien-text em { color: var(--or-pale); font-style: italic; }
+@media (min-width: 860px) {
+  .quotidien-grid { grid-template-columns: 1fr 1fr; gap: clamp(3rem, 6vw, 6rem); }
+}
+
 /* ---------- En images : le film (home) ---------- */
 .reel { padding: 0 var(--gutter) var(--chapter-pad) var(--gutter-left); }
 .reel > * { max-width: 1240px; }
