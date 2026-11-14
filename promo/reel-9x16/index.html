@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <title>Thorelle promo 9:16</title>
 <!--
-  Vertical promo reel (1080x1920), "La Veille": one night of watch, 21:47 to 06:12.
+  Vertical promo reel (1080x1920), Cabinet Thorelle Conseils.
   Deterministic: window.render(t) draws the frame at time t (seconds).
   Rendered to video by render.js. Serve the repo root (python3 -m http.server 4321)
   and open /promo/reel-9x16/ to preview; add ?play to watch it in real time.
@@ -25,6 +25,7 @@ html, body { width: 1080px; height: 1920px; overflow: hidden; background: var(--
   font-family: "Hanken Grotesk", sans-serif; }
 .layer { position: absolute; inset: 0; opacity: 0; will-change: opacity; }
 .abs { position: absolute; }
+.navy { background: radial-gradient(110% 65% at 50% 42%, #10264a 0%, var(--abysse) 50%, var(--nuit) 85%); }
 
 .cinzel { font-family: "Cinzel", serif; font-weight: 500; letter-spacing: .3em; text-transform: uppercase; }
 .corm { font-family: "Cormorant", serif; font-weight: 300; line-height: .98; letter-spacing: -.01em; }
@@ -32,27 +33,17 @@ html, body { width: 1080px; height: 1920px; overflow: hidden; background: var(--
 .mask { overflow: hidden; display: block; padding-bottom: .08em; }
 .mask > span { display: block; will-change: transform; }
 .hair { height: 1px; background: linear-gradient(90deg, var(--or), rgba(201,165,90,.15)); transform-origin: left center; }
+.hair.center { transform-origin: center; background: linear-gradient(90deg, transparent, var(--or-pale), transparent); margin-left: auto !important; margin-right: auto !important; }
 
-/* ---------- Night sky (prologue + serment) ---------- */
-#night { background: radial-gradient(120% 60% at 72% 58%, #0d2140 0%, var(--abysse) 45%, var(--nuit) 80%); }
-#stars { position: absolute; inset: 0 0 38% 0; }
-#horizon { position: absolute; left: 0; right: 0; top: 1240px; height: 1px; background: linear-gradient(90deg, transparent, var(--or) 30%, var(--or-pale) 72%, var(--or) 85%, transparent); opacity: .7; }
-#ridge { position: absolute; left: 0; top: 1130px; width: 1080px; height: 112px; }
-#sea { position: absolute; left: 0; right: 0; top: 1241px; bottom: 0;
-  background: linear-gradient(180deg, rgba(12,30,54,.9), var(--nuit) 70%); }
-#sea canvas { position: absolute; inset: 0; }
-#beam { position: absolute; left: 778px; top: 1240px; width: 0; height: 0; }
-#beam .cone { position: absolute; left: -1800px; top: -1800px; width: 3600px; height: 3600px; border-radius: 50%;
-  background: conic-gradient(from 0deg at 50% 50%, rgba(236,213,155,0) 0deg, rgba(236,213,155,.16) 6deg, rgba(255,240,205,.34) 10deg, rgba(255,246,220,.62) 12deg, rgba(255,240,205,.34) 14deg, rgba(236,213,155,.16) 18deg, rgba(236,213,155,0) 24deg, transparent 24deg);
-  -webkit-mask: radial-gradient(circle at 50% 50%, #000 0, #000 30%, transparent 58%); mask: radial-gradient(circle at 50% 50%, #000 0, #000 30%, transparent 58%); }
-#lamp { position: absolute; left: 778px; top: 1240px; width: 0; height: 0; }
-#lamp .core { position: absolute; left: -9px; top: -9px; width: 18px; height: 18px; border-radius: 50%; background: #fff6dc;
-  box-shadow: 0 0 18px 6px rgba(255,236,190,.9), 0 0 70px 24px rgba(236,213,155,.45), 0 0 220px 80px rgba(201,165,90,.18); }
-#lamp .flare { position: absolute; left: -420px; top: -1px; width: 840px; height: 2px; background: linear-gradient(90deg, transparent, rgba(255,240,205,.8), transparent); }
-#reflect { position: absolute; left: 738px; top: 1244px; width: 80px; height: 520px;
-  background: linear-gradient(180deg, rgba(236,213,155,.35), transparent); filter: blur(10px); }
-.risk { position: absolute; font-family: "Cormorant", serif; font-style: italic; font-weight: 300; font-size: 54px; color: var(--or-pale); white-space: nowrap; }
-.risk::before { content: "✦"; font-style: normal; font-size: 18px; color: var(--or); position: absolute; left: -30px; top: 22px; opacity: var(--mark, 0); }
+/* ---------- Crest (intro + end) ---------- */
+.crest { position: absolute; left: 50%; }
+.crest img { width: 100%; display: block; filter: drop-shadow(0 18px 44px rgba(0,0,0,.6)); }
+.crest .gw { position: absolute; inset: 0; -webkit-mask: url("/assets/crest.png") 0 0 / 100% auto no-repeat; mask: url("/assets/crest.png") 0 0 / 100% auto no-repeat; }
+.crest .glint { position: absolute; top: -20%; bottom: -20%; width: 34%; left: 0;
+  background: linear-gradient(100deg, transparent 0%, rgba(255,244,214,0) 20%, rgba(255,244,214,.55) 50%, rgba(255,244,214,0) 80%, transparent 100%);
+  mix-blend-mode: overlay; transform: skewX(-12deg); }
+.halo { position: absolute; left: 50%; width: 1100px; height: 1100px; margin-left: -550px; border-radius: 50%;
+  background: radial-gradient(circle, rgba(201,165,90,.22) 0%, rgba(201,165,90,.06) 35%, transparent 62%); }
 
 /* ---------- Photo scenes ---------- */
 .band { position: absolute; left: 0; top: 0; width: 1080px; height: 1260px; overflow: hidden; }
@@ -68,24 +59,15 @@ html, body { width: 1080px; height: 1920px; overflow: hidden; background: var(--
 .items li b { font-family: "Cinzel", serif; font-weight: 500; font-size: 22px; color: var(--or); letter-spacing: .2em; }
 .body { font-size: 34px; line-height: 1.5; color: #cfd3da; max-width: 860px; margin-top: 40px; }
 
-/* ---------- Serment ---------- */
+/* ---------- Values ---------- */
 #vals { position: absolute; left: 0; right: 0; top: 0; height: 1920px; }
 .val { position: absolute; left: 0; right: 0; text-align: center; font-family: "Cormorant", serif; font-weight: 300; font-size: 128px; color: var(--ivoire); }
-.val small { display: block; font-family: "Cinzel", serif; font-size: 22px; letter-spacing: .35em; color: var(--or); margin-bottom: 6px; }
-
-/* ---------- Dawn ---------- */
-#dawn { background: linear-gradient(180deg, #0a1426 0%, #273058 34%, #6d6f94 62%, #c98e72 84%, #e9a774 100%); }
-#dawn .sun { position: absolute; left: 50%; top: 1660px; width: 1400px; height: 1400px; margin-left: -700px; border-radius: 50%;
-  background: radial-gradient(circle, rgba(255,226,180,.85) 0%, rgba(233,167,116,.35) 25%, transparent 55%); }
-#dawn .shade { position: absolute; inset: 0; background: linear-gradient(180deg, rgba(3,7,15,.75) 0%, rgba(3,7,15,.35) 55%, rgba(3,7,15,.1) 100%); }
 
 /* ---------- Chrome (always on) ---------- */
 #chrome { opacity: 1; z-index: 20; pointer-events: none; }
 #brand { position: absolute; left: 72px; top: 84px; display: flex; align-items: center; gap: 22px; }
 #brand img { width: 74px; height: auto; filter: drop-shadow(0 4px 14px rgba(0,0,0,.6)); }
 #brand span { font-size: 21px; color: var(--ivoire); letter-spacing: .32em; }
-#clock { position: absolute; right: 72px; top: 104px; font-size: 21px; color: var(--or); letter-spacing: .3em; text-align: right; }
-#clock b { font-weight: 500; color: var(--or-pale); font-variant-numeric: tabular-nums; letter-spacing: .14em; margin-left: 10px; }
 #progress { position: absolute; left: 72px; right: 72px; top: 196px; height: 1px; background: rgba(201,165,90,.18); }
 #progress i { position: absolute; left: 0; top: 0; bottom: 0; background: var(--or); transform-origin: left; }
 #grain { position: absolute; inset: -60px; background-image: url("grain.png"); opacity: .08; mix-blend-mode: overlay; }
@@ -96,27 +78,30 @@ html, body { width: 1080px; height: 1920px; overflow: hidden; background: var(--
 <body>
 <div id="stage">
 
-  <!-- 1–2 · Prologue: night, beam, risks; then the motto -->
-  <div class="layer" id="night">
-    <canvas id="stars" width="1080" height="1190"></canvas>
-    <svg id="ridge" viewBox="0 0 1080 112" preserveAspectRatio="none">
-      <path id="ridgePath" d="M0 111 L250 111 L420 60 L500 82 L610 18 L700 70 L760 46 L860 111 L1080 111" fill="none" stroke="#c9a55a" stroke-width="1.6" stroke-opacity=".85"/>
-    </svg>
-    <div id="sea"><canvas id="seaCanvas" width="1080" height="679"></canvas></div>
-    <div id="reflect"></div>
-    <div id="beam"><div class="cone"></div></div>
-    <div id="lamp"><div class="flare"></div><div class="core"></div></div>
-    <div id="risks"></div>
+  <!-- 1–2 · Intro: crest, name; then the motto -->
+  <div class="layer navy" id="intro">
+    <div class="halo" id="introHalo" style="top: 280px;"></div>
+    <div id="introBrand">
+      <div class="crest" id="introCrest" style="top: 560px; width: 420px; margin-left: -210px;">
+        <img src="/assets/crest.png" alt=""><div class="gw"><div class="glint"></div></div>
+      </div>
+      <div class="abs" style="left: 0; right: 0; top: 1000px; text-align: center;">
+        <div class="cinzel" id="introName" style="font-size: 40px; letter-spacing: .22em; color: var(--ivoire);">Cabinet Thorelle Conseils</div>
+        <div class="hair center" id="introHair" style="width: 340px; margin: 40px 0;"></div>
+        <div id="introSub" style="font-family: Cormorant, serif; font-style: italic; font-size: 42px; color: var(--or-pale);">Risk &amp; Management · Accompagnement de sûreté</div>
+      </div>
+    </div>
 
-    <div class="copy abs" id="motto" style="top: 560px;">
-      <div class="eyebrow cinzel" id="mottoEyebrow">Conseil en sûreté</div>
-      <div class="hair" id="mottoHair"></div>
+    <div class="copy abs" id="motto" style="top: 600px;">
+      <div class="eyebrow cinzel">Conseil en sûreté</div>
+      <div class="hair"></div>
       <div class="corm headline" style="font-size: 124px;">
         <span class="mask"><span>Anticiper</span></span>
         <span class="mask"><span style="padding-left: 70px;">les risques,</span></span>
         <span class="mask"><span><em>c'est préserver</em></span></span>
         <span class="mask"><span style="padding-left: 70px;"><em>ce qui compte.</em></span></span>
       </div>
+      <p class="body" style="margin-top: 70px;">Entreprises &amp; particuliers&nbsp;: repérer les risques avant qu'ils ne vous atteignent.</p>
     </div>
   </div>
 
@@ -124,13 +109,13 @@ html, body { width: 1080px; height: 1920px; overflow: hidden; background: var(--
   <div class="layer" id="s-emmanuel">
     <div class="band" style="height: 1340px;"><img src="/assets/cabinet-portrait@2x.webp" data-w="760" data-h="1157" alt=""></div>
     <div class="copy" style="top: 1230px;">
-      <div class="eyebrow cinzel">I · Observer</div>
+      <div class="eyebrow cinzel">Le fondateur</div>
       <div class="hair"></div>
       <div class="corm headline" style="font-size: 88px;">
-        <span class="mask"><span>Une personne,</span></span>
-        <span class="mask"><span><em>pas une enseigne.</em></span></span>
+        <span class="mask"><span>Emmanuel Thorelle,</span></span>
+        <span class="mask"><span><em>à vos côtés.</em></span></span>
       </div>
-      <p class="body">Emmanuel Thorelle, fondateur. Il vous aide à comprendre les risques et à prendre les bons réflexes au quotidien.</p>
+      <p class="body">Il accompagne entreprises et particuliers pour mieux comprendre les risques et adopter les bons réflexes au quotidien.</p>
     </div>
   </div>
 
@@ -138,7 +123,7 @@ html, body { width: 1080px; height: 1920px; overflow: hidden; background: var(--
   <div class="layer" id="s-entreprises">
     <div class="band"><img src="/assets/cabinet-thorelle.webp" data-w="1600" data-h="901" alt=""></div>
     <div class="copy">
-      <div class="eyebrow cinzel">Dossier A · Entreprises</div>
+      <div class="eyebrow cinzel">Entreprises</div>
       <div class="hair"></div>
       <div class="corm headline">
         <span class="mask"><span>Protéger vos équipes,</span></span>
@@ -156,7 +141,7 @@ html, body { width: 1080px; height: 1920px; overflow: hidden; background: var(--
   <div class="layer" id="s-particuliers">
     <div class="band"><img src="/assets/accueil-residence.webp" data-w="1600" data-h="901" alt=""></div>
     <div class="copy">
-      <div class="eyebrow cinzel">Dossier B · Particuliers</div>
+      <div class="eyebrow cinzel">Particuliers</div>
       <div class="hair"></div>
       <div class="corm headline">
         <span class="mask"><span>Se sentir en sûreté</span></span>
@@ -171,11 +156,11 @@ html, body { width: 1080px; height: 1920px; overflow: hidden; background: var(--
     </div>
   </div>
 
-  <!-- 6 · Au quotidien -->
+  <!-- 6 · Accompagnement -->
   <div class="layer" id="s-quotidien">
     <div class="band"><img src="/assets/accompagnement-provence.webp" data-w="1100" data-h="1100" alt=""></div>
     <div class="copy">
-      <div class="eyebrow cinzel">✦ Au quotidien</div>
+      <div class="eyebrow cinzel">Accompagnement</div>
       <div class="hair"></div>
       <div class="corm headline">
         <span class="mask"><span>Une présence</span></span>
@@ -185,28 +170,30 @@ html, body { width: 1080px; height: 1920px; overflow: hidden; background: var(--
     </div>
   </div>
 
-  <!-- 7 · Le serment -->
-  <div class="layer" id="s-serment" style="background: radial-gradient(100% 60% at 50% 50%, #0b1b33 0%, var(--nuit) 75%);">
-    <div class="abs cinzel" id="sermentLabel" style="left:0; right:0; top: 430px; text-align:center; font-size: 25px; color: var(--or);">IV · Le serment</div>
+  <!-- 7 · Nos valeurs -->
+  <div class="layer navy" id="s-valeurs">
+    <div class="abs" id="valLabel" style="left:0; right:0; top: 430px; text-align:center;">
+      <div class="cinzel" style="font-size: 25px; color: var(--or);">Nos valeurs</div>
+      <div class="hair center" id="valHair" style="width: 160px; margin-top: 26px;"></div>
+    </div>
     <div id="vals"></div>
   </div>
 
-  <!-- 8 · L'aube -->
-  <div class="layer" id="dawn">
-    <div class="sun"></div>
-    <div class="shade"></div>
-    <div class="abs" id="endCrest" style="left: 50%; top: 360px; width: 340px; margin-left: -170px;">
-      <img src="/assets/crest.png" alt="" style="width: 100%; filter: drop-shadow(0 16px 40px rgba(0,0,0,.55));">
+  <!-- 8 · End card -->
+  <div class="layer navy" id="end">
+    <div class="halo" id="endHalo" style="top: 120px;"></div>
+    <div class="crest" id="endCrest" style="top: 380px; width: 320px; margin-left: -160px;">
+      <img src="/assets/crest.png" alt=""><div class="gw"><div class="glint"></div></div>
     </div>
     <div class="abs" style="left: 0; right: 0; top: 700px; text-align: center;">
       <div class="cinzel" id="endName" style="font-size: 38px; letter-spacing: .22em; color: var(--ivoire);">Cabinet Thorelle Conseils</div>
       <div id="endSub" style="font-family: Cormorant, serif; font-style: italic; font-size: 38px; color: var(--or-pale); margin-top: 14px;">Risk &amp; Management · Accompagnement de sûreté</div>
-      <div class="hair" id="endHair" style="width: 300px; margin: 64px auto; transform-origin: center; background: linear-gradient(90deg, transparent, var(--or-pale), transparent);"></div>
-      <div class="corm" id="endCall" style="font-size: 104px;">Parlons de ce<br><em style="color:#fff1d6">qui compte pour vous.</em></div>
+      <div class="hair center" id="endHair" style="width: 300px; margin: 64px 0;"></div>
+      <div class="corm" id="endCall" style="font-size: 104px;">Parlons de ce<br><em>qui compte pour vous.</em></div>
       <div id="endCta" style="margin-top: 80px;">
         <div class="cinzel" style="font-size: 22px; color: var(--ivoire); opacity: .85;">Premier échange confidentiel</div>
         <div style="font-family: 'Hanken Grotesk'; font-weight: 500; font-size: 76px; letter-spacing: .06em; margin-top: 26px; color: #fff;">06 13 73 42 52</div>
-        <div style="font-family: Cormorant, serif; font-size: 56px; margin-top: 18px; color: #fff1d6;">thorellesurete.fr</div>
+        <div style="font-family: Cormorant, serif; font-size: 56px; margin-top: 18px; color: var(--or-pale);">thorellesurete.fr</div>
       </div>
     </div>
   </div>
@@ -216,7 +203,6 @@ html, body { width: 1080px; height: 1920px; overflow: hidden; background: var(--
     <div id="grain"></div>
     <div id="vignette"></div>
     <div id="brand"><img src="/assets/crest-160.webp" alt=""><span class="cinzel">Thorelle Conseils</span></div>
-    <div id="clock" class="cinzel">Veille<b id="clockTime">21:47</b></div>
     <div id="progress"><i id="progressBar"></i></div>
     <div id="fade"></div>
   </div>
@@ -229,38 +215,16 @@ const $$ = (s, r = document) => [...r.querySelectorAll(s)];
 const clamp = (x, a = 0, b = 1) => Math.min(b, Math.max(a, x));
 const lerp = (a, b, k) => a + (b - a) * k;
 const prog = (t, a, b) => clamp((t - a) / (b - a));
-const expo = k => k >= 1 ? 1 : 1 - Math.pow(2, -10 * k);          // --ease (expo-out)
+const expo = k => k >= 1 ? 1 : 1 - Math.pow(2, -10 * k);          // expo-out, the site's --ease
 const inout = k => k < .5 ? 4 * k * k * k : 1 - Math.pow(-2 * k + 2, 3) / 2;
 const smooth = k => k * k * (3 - 2 * k);
 // Envelope: fade in over [a, a+fi], out over [b-fo, b]
 const env = (t, a, b, fi = .6, fo = .6) => Math.min(smooth(prog(t, a, a + fi)), 1 - smooth(prog(t, b - fo, b)));
 
-/* ---------- Static drawing ---------- */
-function rand(seed) { let s = seed; return () => (s = (s * 16807) % 2147483647) / 2147483647; }
-const STARS = (() => { const r = rand(7); return Array.from({ length: 220 }, () => ({ x: r() * 1080, y: r() * 1190, s: r() * 1.4 + .3, p: r() * 6.28, a: r() * .6 + .2 })); })();
-const SEA = (() => { const r = rand(11); const out = []; for (let row = 0; row < 70; row++) { const y = Math.pow(row / 70, 1.7) * 679; const n = 10 + row * 1.2; for (let i = 0; i < n; i++) out.push({ y, x: r() * 1080, w: 6 + r() * (10 + row * 1.6), p: r() * 6.28 }); } return out; })();
-
-const RISKS = [
-  ["Intrusion", 120, 330], ["Imprévu", 610, 420], ["Vie privée", 300, 560], ["Conflit", 720, 650],
-  ["Accès", 110, 790], ["Incident", 520, 880], ["Déplacement sensible", 180, 1010], ["Vulnérabilité", 590, 1090]
-];
-const riskEls = RISKS.map(([w, x, y]) => { const d = document.createElement("div"); d.className = "risk"; d.textContent = w; d.style.left = x + "px"; d.style.top = y + "px"; $("#risks").appendChild(d); return d; });
-const LAMP = { x: 778, y: 1240 };
-const beamAngle = t => lerp(64, -74, inout(prog(t, .5, 4.4))) + Math.sin((t - 4.4) * .7) * 10 * smooth(prog(t, 4.4, 6));
-let RISK_SEEN = null;
-function computeSeen() {
-  RISK_SEEN = riskEls.map((el, i) => {
-    const [, x, y] = RISKS[i]; const a = Math.atan2(x + el.offsetWidth / 2 - LAMP.x, LAMP.y - y - 30) * 180 / Math.PI;
-    for (let t = .5; t < 8; t += 1 / 60) if (Math.abs(beamAngle(t) - a) < 4) return t;
-    return null;
-  });
-}
-
 const VALUES = ["Loyauté", "Discrétion", "Anticipation", "Rigueur", "Réactivité", "Respect", "Intégrité", "Confiance", "Équilibre"];
-const ROMAN = ["I", "II", "III", "IV", "V", "VI", "VII", "VIII", "XI"];
-const valEls = VALUES.map((v, i) => { const d = document.createElement("div"); d.className = "val"; d.innerHTML = `<small>${["I","II","III","IV","V","VII","VIII","X","XI"][i]}</small>${v}`; $("#vals").appendChild(d); return d; });
+const valEls = VALUES.map(v => { const d = document.createElement("div"); d.className = "val"; d.textContent = v; $("#vals").appendChild(d); return d; });
 
-// Scene definitions (photo scenes)
+// Photo scenes: [focusX, focusY, zoom] at start and end (zoom 1 = cover)
 const SCENES = [
   { el: "#s-emmanuel",    a: 7.4,  b: 11.4, pan: [[.50, .10, 1.00], [.50, .16, 1.08]] },
   { el: "#s-entreprises", a: 11.0, b: 15.0, pan: [[.00, .50, 1.40], [.55, .45, 1.46]] },
@@ -268,71 +232,45 @@ const SCENES = [
   { el: "#s-quotidien",   a: 18.2, b: 22.2, pan: [[.50, .40, 1.15], [.50, .70, 1.26]] },
 ].map(s => ({ ...s, node: $(s.el), img: $(s.el + " img"), band: $(s.el + " .band") }));
 
-/* ---------- Helpers ---------- */
+function rise(el, k, d = 28) { el.style.opacity = k; el.style.transform = `translateY(${(1 - k) * d}px)`; }
 function revealCopy(root, t, t0) {
   const eb = $(".eyebrow", root), hair = $(".hair", root);
-  if (eb) { const k = expo(prog(t, t0, t0 + 1.2)); eb.style.opacity = k; eb.style.transform = `translateY(${(1 - k) * 28}px)`; }
+  if (eb) rise(eb, expo(prog(t, t0, t0 + 1.2)));
   if (hair) hair.style.transform = `scaleX(${expo(prog(t, t0 + .1, t0 + 1.0))})`;
   $$(".mask > span", root).forEach((s, i) => { const k = expo(prog(t, t0 + .25 + i * .12, t0 + 1.55 + i * .12)); s.style.transform = `translateY(${(1 - k) * 108}%)`; });
-  $$(".items li", root).forEach((li, i) => { const k = expo(prog(t, t0 + .9 + i * .16, t0 + 2.1 + i * .16)); li.style.opacity = k; li.style.transform = `translateY(${(1 - k) * 28}px)`; });
-  $$(".body", root).forEach(b => { const k = expo(prog(t, t0 + 1.0, t0 + 2.4)); b.style.opacity = k; b.style.transform = `translateY(${(1 - k) * 28}px)`; });
+  $$(".items li", root).forEach((li, i) => rise(li, expo(prog(t, t0 + .7 + i * .12, t0 + 1.8 + i * .12))));
+  $$(".body", root).forEach(b => rise(b, expo(prog(t, t0 + 1.0, t0 + 2.4))));
 }
 function kenBurns(s, t) {
   const k = inout(prog(t, s.a, s.b));
   const [p0, p1] = s.pan; const fx = lerp(p0[0], p1[0], k), fy = lerp(p0[1], p1[1], k), z = lerp(p0[2], p1[2], k);
   const bw = 1080, bh = s.band.offsetHeight, iw = +s.img.dataset.w, ih = +s.img.dataset.h;
-  const base = Math.max(bw / iw, bh / ih); const sc = base * z / Math.max(1, z * 0 + 1) ; // z is relative zoom of "cover"
-  const w = iw * base * z, h = ih * base * z;
-  const tx = -(w - bw) * fx, ty = -(h - bh) * fy;
+  const sc = Math.max(bw / iw, bh / ih) * z;
   s.img.style.width = iw + "px"; s.img.style.height = ih + "px";
-  s.img.style.transform = `translate(${tx}px, ${ty}px) scale(${base * z})`;
+  s.img.style.transform = `translate(${-(iw * sc - bw) * fx}px, ${-(ih * sc - bh) * fy}px) scale(${sc})`;
+}
+function glint(crest, t, t0) {   // a light passing over the gold
+  const k = inout(prog(t, t0, t0 + 1.6));
+  $(".glint", crest).style.left = lerp(-45, 115, k) + "%";
 }
 
-/* ---------- Frame ---------- */
-const starCtx = $("#stars").getContext("2d"), seaCtx = $("#seaCanvas").getContext("2d");
 function render(t) {
-  // Night layer (0 → 8.0)
-  const nightOp = 1 - smooth(prog(t, 7.4, 8.0));
-  $("#night").style.opacity = nightOp;
-  if (nightOp > 0) {
-    // stars
-    starCtx.clearRect(0, 0, 1080, 1190);
-    for (const s of STARS) { starCtx.globalAlpha = s.a * (.65 + .35 * Math.sin(t * 1.3 + s.p)) * smooth(prog(t, 0, 1.2)); starCtx.fillStyle = "#ede6d6"; starCtx.fillRect(s.x, s.y, s.s, s.s); }
-    // beam angle: sweeps across the sky, slow in-out
-    const beamOn = smooth(prog(t, .5, 1.8));
-    if (!RISK_SEEN) computeSeen();
-    const ang = beamAngle(t);   // degrees from vertical
-    const cone = $("#beam .cone"); cone.style.transform = `rotate(${ang - 12}deg)`; cone.style.opacity = beamOn * .95;
-    // lamp ignition with a flicker
-    const ign = prog(t, .25, 1.75); const flick = ign < 1 ? (Math.sin(ign * 40) * .25 + .75) * smooth(ign) : 1;
-    $("#lamp .core").style.opacity = flick; $("#lamp .core").style.transform = `scale(${.4 + .6 * expo(ign)})`;
-    $("#lamp .flare").style.transform = `scaleX(${expo(prog(t, .45, 2.25))})`; $("#lamp .flare").style.opacity = .9 * flick;
-    $("#reflect").style.opacity = flick * (.8 + .2 * Math.sin(t * 2));
-    // ridge draws
-    const rp = $("#ridgePath"); const L = 1300; rp.style.strokeDasharray = L; rp.style.strokeDashoffset = L * (1 - expo(prog(t, .6, 3.6)));
-    // sea dashes shimmer where the beam lands
-    seaCtx.clearRect(0, 0, 1080, 679);
-    const hit = LAMP.x + Math.tan(ang * Math.PI / 180) * 260;
-    for (const d of SEA) {
-      const near = Math.exp(-Math.pow((d.x - lerp(LAMP.x, hit, .25 + d.y / 1400)) / (50 + d.y * .12), 2)) * beamOn;
-      seaCtx.globalAlpha = (.07 + .07 * Math.sin(t * 2.2 + d.p + d.x * .01)) * (1 - d.y / 900) + near * .5;
-      seaCtx.fillStyle = near > .25 ? "#ecd59b" : "#8a94a5";
-      seaCtx.fillRect((d.x + t * 6) % 1100 - 10, d.y + Math.sin(t + d.p) * 1.5, d.w, 1.2);
-    }
-    // risks: lit by the beam, keep a mark once seen
-    const mottoIn = prog(t, 3.6, 4.4);
-    riskEls.forEach((el, i) => {
-      const [, x, y] = RISKS[i]; const cx = x + el.offsetWidth / 2, cy = y + 30;
-      const a = Math.atan2(cx - LAMP.x, LAMP.y - cy) * 180 / Math.PI;
-      const lit = Math.exp(-Math.pow((a - ang) / 11, 2)) * beamOn;
-      const seenAt = RISK_SEEN[i];
-      const glow = seenAt != null && t > seenAt ? .5 : 0;
-      el.style.opacity = Math.max(lit, glow) * (1 - mottoIn * .9);
-      el.style.setProperty("--mark", glow ? 1 : 0);
-    });
-    // motto
-    $("#motto").style.opacity = 1;
-    revealCopy($("#motto"), t, 3.7);
+  // Intro (0 → 8.0): crest + name, then the motto
+  const iOp = 1 - smooth(prog(t, 7.4, 8.0));
+  $("#intro").style.opacity = iOp;
+  if (iOp > 0) {
+    const out = smooth(prog(t, 3.2, 3.9));
+    const ce = expo(prog(t, .2, 2.0));
+    const crest = $("#introCrest");
+    crest.style.opacity = ce * (1 - out);
+    crest.style.transform = `translateY(${(1 - ce) * 40 - out * 40}px) scale(${.92 + .08 * ce})`;
+    glint(crest, t, 1.0);
+    $("#introHalo").style.opacity = ce * (1 - out * .6);
+    rise($("#introName"), expo(prog(t, .7, 2.0)) * (1 - out));
+    $("#introHair").style.transform = `scaleX(${expo(prog(t, 1.0, 2.0))})`; $("#introHair").style.opacity = 1 - out;
+    rise($("#introSub"), expo(prog(t, 1.2, 2.5)) * (1 - out));
+    $("#motto").style.opacity = smooth(prog(t, 3.6, 3.8));
+    revealCopy($("#motto"), t, 3.75);
   }
 
   // Photo scenes
@@ -342,42 +280,42 @@ function render(t) {
     if (op > 0) { kenBurns(s, t); revealCopy(s.node, t, s.a + .25); }
   }
 
-  // Serment (21.8 → 26.0)
-  const sOp = env(t, 21.8, 26.0, .6, .7);
-  $("#s-serment").style.opacity = sOp;
-  if (sOp > 0) {
-    const lk = expo(prog(t, 22.0, 23.0)); $("#sermentLabel").style.opacity = lk;
-    const pos = lerp(-.4, VALUES.length - .6, prog(t, 22.1, 25.9));   // continuous litany position
+  // Values (21.8 → 26.0): one value at a time passes through the centre
+  const vOp = env(t, 21.8, 26.0, .6, .7);
+  $("#s-valeurs").style.opacity = vOp;
+  if (vOp > 0) {
+    rise($("#valLabel"), expo(prog(t, 22.0, 23.0)));
+    $("#valHair").style.transform = `scaleX(${expo(prog(t, 22.2, 23.2))})`;
+    const pos = lerp(-.4, VALUES.length - .6, prog(t, 22.1, 25.9));
     valEls.forEach((el, i) => {
-      const d = i - pos; const y = 940 + d * 190;
-      const lit = Math.exp(-d * d * 2.2);
-      el.style.top = (y - 70) + "px";
+      const d = i - pos, lit = Math.exp(-d * d * 2.2);
+      el.style.top = (940 + d * 190 - 70) + "px";
       el.style.opacity = clamp(.1 + lit * .9) * clamp(1 - Math.abs(d) / 3.2);
       el.style.color = lit > .6 ? "#ecd59b" : "#ede6d6";
       el.style.transform = `scale(${.78 + .22 * lit})`;
     });
   }
 
-  // Dawn (25.6 → end)
-  const dOp = smooth(prog(t, 25.6, 26.6));
-  $("#dawn").style.opacity = dOp;
-  if (dOp > 0) {
+  // End card (25.6 → end)
+  const eOp = smooth(prog(t, 25.6, 26.4));
+  $("#end").style.opacity = eOp;
+  if (eOp > 0) {
     const d0 = 25.9;
-    const ce = expo(prog(t, d0, d0 + 1.6)); $("#endCrest").style.opacity = ce; $("#endCrest").style.transform = `translateY(${(1 - ce) * 30}px) scale(${.94 + .06 * ce})`;
-    [["#endName", .35], ["#endSub", .55], ["#endCall", 1.0], ["#endCta", 1.7]].forEach(([s, o]) => { const k = expo(prog(t, d0 + o, d0 + o + 1.4)); $(s).style.opacity = k; $(s).style.transform = `translateY(${(1 - k) * 28}px)`; });
+    const ce = expo(prog(t, d0, d0 + 1.6)); const crest = $("#endCrest");
+    crest.style.opacity = ce; crest.style.transform = `translateY(${(1 - ce) * 30}px) scale(${.94 + .06 * ce})`;
+    glint(crest, t, d0 + .8);
+    $("#endHalo").style.opacity = ce * (.8 + .2 * Math.sin((t - d0) * 1.2));
+    [["#endName", .35], ["#endSub", .55], ["#endCall", 1.0], ["#endCta", 1.7]].forEach(([s, o]) => rise($(s), expo(prog(t, d0 + o, d0 + o + 1.4))));
     $("#endHair").style.transform = `scaleX(${expo(prog(t, d0 + .8, d0 + 1.8))})`;
-    $("#dawn .sun").style.transform = `translateY(${-lerp(0, 220, smooth(prog(t, 25.6, 31)))}px)`;
-    $("#dawn .shade").style.opacity = lerp(1, .55, smooth(prog(t, 25.6, 30)));
   }
 
-  // Chrome: clock 21:47 → 06:12 over the film, progress hairline, grain jitter
-  const mins = Math.round(lerp(0, 505, smooth(prog(t, 0, 27.5)))); const tot = 21 * 60 + 47 + mins;
-  const hh = Math.floor(tot / 60) % 24, mm = tot % 60;
-  $("#clockTime").textContent = String(hh).padStart(2, "0") + ":" + String(mm).padStart(2, "0");
-  const ch = expo(prog(t, .3, 1.6)); $("#brand").style.opacity = ch * (1 - .6 * dOp); $("#clock").style.opacity = ch; $("#progress").style.opacity = ch * .9;
+  // Chrome: brand mark (hidden while the big crest is on screen), progress hairline, grain
+  const intro = 1 - smooth(prog(t, 3.2, 3.9));
+  $("#brand").style.opacity = expo(prog(t, .3, 1.6)) * (1 - intro) * (1 - eOp);
+  $("#progress").style.opacity = expo(prog(t, .3, 1.6)) * .9;
   $("#progressBar").style.transform = `scaleX(${prog(t, 0, DURATION)})`;
   const f = Math.floor(t * 24); $("#grain").style.transform = `translate(${(f * 37) % 60 - 30}px, ${(f * 53) % 60 - 30}px)`;
-  $("#fade").style.opacity = Math.max(1 - smooth(prog(t, 0, .6)), smooth(prog(t, DURATION - .5, DURATION)) * 0);
+  $("#fade").style.opacity = 1 - smooth(prog(t, 0, .6));
 }
 window.DURATION = DURATION;
 window.render = render;

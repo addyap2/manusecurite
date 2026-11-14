@@ -1,7 +1,7 @@
 """Original ambient soundtrack for the 9:16 reel (31 s, 48 kHz stereo WAV).
 
-Night: a dark D minor pad with a slow swell. A soft bell marks each scene change.
-Dawn (25.6 s): the pad opens to D major and brightens.
+A calm D minor pad with a slow swell. A soft bell marks each scene change.
+End card (25.6 s): the pad opens to D major and brightens.
 Usage: python3 soundtrack.py out.wav
 """
 import sys
@@ -33,23 +33,23 @@ def pad_voice(midi, amp, detune=0.12):
     return out * amp * lfo / 3
 
 
-dawn = smooth((t - 25.2) / 1.6)
-night = 1 - dawn
+end = smooth((t - 25.2) / 1.6)
+calm = 1 - end
 
-# Night chord: D2 A2 D3 F3 E4 C5 ; dawn chord: D2 A2 D3 F#3 A3 E4 F#5
+# Main chord: D2 A2 D3 F3 E4 C5 ; end chord: D2 A2 D3 F#3 A3 E4 F#5
 mix = (
     pad_voice(38, .30) + pad_voice(45, .22) + pad_voice(50, .16)
-    + pad_voice(53, .12) * night + pad_voice(54, .12) * dawn
-    + pad_voice(64, .07) + pad_voice(72, .035) * night
-    + pad_voice(57, .09) * dawn + pad_voice(78, .04) * dawn
+    + pad_voice(53, .12) * calm + pad_voice(54, .12) * end
+    + pad_voice(64, .07) + pad_voice(72, .035) * calm
+    + pad_voice(57, .09) * end + pad_voice(78, .04) * end
 )
-# slow swell through the film, bigger at dawn
-mix *= (0.55 + 0.25 * smooth(t / 20)) + 0.35 * dawn
+# slow swell through the film, bigger at end
+mix *= (0.55 + 0.25 * smooth(t / 20)) + 0.35 * end
 
 # soft air / sea noise, low-passed
 noise = rng.normal(0, 1, t.size)
 k = np.exp(-np.arange(400) / 60.0); k /= k.sum()
-sea = np.convolve(noise, k, mode="same") * (0.10 + 0.05 * np.sin(2 * np.pi * 0.11 * t)) * (1 - 0.6 * dawn)
+sea = np.convolve(noise, k, mode="same") * (0.10 + 0.05 * np.sin(2 * np.pi * 0.11 * t)) * (1 - 0.6 * end)
 mix += sea
 
 # bells at each cut
@@ -66,7 +66,7 @@ def bell(at, midi, amp):
 for at, note in [(0.3, 74), (3.75, 81), (7.5, 77), (11.1, 76), (14.7, 74), (18.3, 72), (21.9, 69), (26.0, 78), (27.7, 81)]:
     mix += bell(at, note, .16)
 
-# sub thump with the motto and at dawn
+# sub thump with the motto and at end
 for at in (3.7, 25.8):
     m = t >= at; tt = t[m] - at
     mix[m] += .35 * np.sin(2 * np.pi * 41 * tt) * np.exp(-tt / 1.2) * (1 - np.exp(-tt * 40))
