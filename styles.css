@@ -1004,6 +1004,68 @@ em { font-style: italic; }
 .teaser > * { max-width: 1240px; }
 .teaser-foot { margin-top: 2.4rem; display: flex; flex-wrap: wrap; gap: .5rem 2.8rem; }
 
+/* ---------- En images : le film (home) ---------- */
+.reel { padding: 0 var(--gutter) var(--chapter-pad) var(--gutter-left); }
+.reel > * { max-width: 1240px; }
+.reel-grid { display: grid; gap: clamp(2.5rem, 6vw, 5rem); align-items: center; }
+.reel-copy { max-width: 32ch; }
+.reel-title {
+  font-family: var(--f-display); font-weight: 300;
+  font-size: clamp(2.2rem, 5vw, 4rem); line-height: 1.05; letter-spacing: -.01em;
+  margin-top: .4rem;
+}
+.reel-title em { color: var(--or-pale); }
+.reel-text { margin-top: 1.4rem; color: var(--brume); max-width: 36ch; }
+
+.reel-player {
+  position: relative; margin: 0;
+  width: min(100%, 340px); aspect-ratio: 9 / 16;
+  border-radius: 14px; overflow: hidden;
+  background: var(--nuit);
+  border: 1px solid var(--hair);
+  box-shadow: 0 30px 70px -40px rgba(0, 0, 0, .9);
+}
+.reel-video { width: 100%; height: 100%; object-fit: cover; display: block; background: var(--nuit); }
+
+.reel-cover {
+  display: none; position: absolute; inset: 0;
+  padding: 0; border: 0; cursor: pointer;
+  background: var(--nuit); color: var(--ivoire);
+  align-items: flex-end; justify-content: center;
+}
+.js .reel-player:not(.playing) .reel-cover { display: flex; }
+.reel-player.playing .reel-video { pointer-events: auto; }
+.reel-cover-img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+.reel-cover::after {
+  content: ""; position: absolute; inset: 0;
+  background: linear-gradient(to top, rgba(3, 7, 15, .72), rgba(3, 7, 15, .05) 45%, rgba(3, 7, 15, .18));
+}
+.reel-play {
+  position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);
+  z-index: 1; display: grid; place-items: center;
+  width: 72px; height: 72px; border-radius: 50%;
+  color: var(--nuit); background: var(--gold-fill);
+  box-shadow: 0 10px 30px -8px rgba(0, 0, 0, .7);
+  transition: transform var(--dur-base) var(--ease);
+}
+.reel-play svg { margin-left: 3px; }
+.reel-cover:hover .reel-play, .reel-cover:focus-visible .reel-play { transform: translate(-50%, -50%) scale(1.07); }
+.reel-cover-label {
+  position: relative; z-index: 1; margin-bottom: 1.4rem;
+  display: flex; flex-direction: column; align-items: center; gap: .3rem;
+  font-family: var(--f-herald); font-size: .68rem; letter-spacing: .26em; text-transform: uppercase;
+  text-shadow: 0 1px 10px rgba(0, 0, 0, .7);
+}
+.reel-cover-label b { font-weight: 500; color: var(--or-pale); letter-spacing: .2em; font-variant-numeric: tabular-nums; }
+
+@media (min-width: 820px) {
+  .reel-grid { grid-template-columns: 1fr auto; gap: clamp(3rem, 7vw, 7rem); }
+  .reel-player { width: 320px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .reel-play, .reel-cover:hover .reel-play, .reel-cover:focus-visible .reel-play { transition: none; }
+}
+
 /* =========================================================
    MOTION SYSTEM — see docs/MOTION-SYSTEM.md
    ========================================================= */
@@ -1300,6 +1362,22 @@ em { font-style: italic; }
 .founder .manifesto { font-size: clamp(1.8rem, 3.2vw, 3.2rem); }
 .founder .signature { margin-left: 0; }
 @media (max-width: 860px) { .founder { grid-template-columns: 1fr; } .founder .cutout { max-width: 100%; } }
+
+/* ---------- Accompagnement à domicile ---------- */
+.portrait-cutout { border-radius: 12px; overflow: hidden; border: 1px solid var(--hair); background: var(--nuit); }
+.portrait-cutout img { width: 100%; height: 100%; object-fit: cover; }
+.founder-rev .portrait-cutout { aspect-ratio: 3 / 4; }
+@media (min-width: 861px) {
+  .founder-rev { grid-template-columns: minmax(0, .8fr) minmax(0, 1.2fr); }
+  .founder-rev .portrait-cutout { order: 2; max-width: 360px; justify-self: end; }
+}
+.service-note {
+  margin-top: clamp(2rem, 5vh, 3rem); padding-top: 1.4rem;
+  border-top: 1px solid var(--hair-soft);
+  color: var(--brume); font-size: .95rem; font-style: italic; max-width: 60ch;
+}
+.values-grid-soft { grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); }
+.values-grid-soft li span { color: var(--or-pale); }
 
 /* Contact: who you will be speaking to */
 .contact-portrait { max-width: 260px; margin-bottom: 2.4rem; }

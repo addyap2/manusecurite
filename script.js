@@ -660,6 +660,26 @@
     }
   }
 
+  // --- En images : click-to-play reel (home) ---
+  var reelPlayer = document.querySelector('.reel-player');
+  if (reelPlayer) {
+    var reelVideo = reelPlayer.querySelector('.reel-video');
+    var reelCover = reelPlayer.querySelector('.reel-cover');
+    if (reelVideo && reelCover) {
+      reelCover.addEventListener('click', function () {
+        reelPlayer.classList.add('playing');
+        var p = reelVideo.play();
+        if (p && typeof p.catch === 'function') p.catch(function () {});
+        var ctrl = reelPlayer.querySelector('.reel-video');
+        if (ctrl) ctrl.focus({ preventScroll: true });
+      });
+      reelVideo.addEventListener('ended', function () {
+        reelPlayer.classList.remove('playing');
+        try { reelVideo.currentTime = 0; } catch (e) {}
+      });
+    }
+  }
+
   var year = document.getElementById('year');
   if (year) year.textContent = new Date().getFullYear();
 })();
