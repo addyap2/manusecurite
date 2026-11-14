@@ -816,6 +816,40 @@ em { font-style: italic; }
 .page-section { padding: clamp(5rem, 13vh, 9rem) var(--gutter) 0 var(--gutter-left); }
 .page-section > * { max-width: 1240px; }
 .page-section:last-of-type { padding-bottom: clamp(5rem, 13vh, 9rem); }
+
+/* ---- Cinematic photo band ---- */
+.photo-band {
+  position: relative; isolation: isolate; margin: 0; overflow: hidden;
+  min-height: clamp(360px, 56vh, 620px);
+  display: flex; align-items: flex-end;
+  border-block: 1px solid var(--hair-soft);
+}
+.photo-band img {
+  position: absolute; inset: 0; width: 100%; height: 100%;
+  object-fit: cover; object-position: center 38%; z-index: -2;
+}
+.photo-band::after {
+  content: ""; position: absolute; inset: 0; z-index: -1;
+  background:
+    linear-gradient(to top, rgba(2, 5, 11, .92) 0%, rgba(3, 7, 15, .45) 42%, rgba(3, 7, 15, .12) 100%),
+    linear-gradient(to right, rgba(2, 5, 11, .6), transparent 55%);
+}
+.photo-band-cap {
+  padding: clamp(2.4rem, 6vh, 4rem) var(--gutter) clamp(2.4rem, 6vh, 4rem) var(--gutter-left);
+  max-width: 48ch;
+}
+.photo-band-kicker {
+  display: block; font: var(--label); letter-spacing: .22em; text-transform: uppercase;
+  background: var(--gold-text); -webkit-background-clip: text; background-clip: text; color: transparent;
+  margin-bottom: .9rem;
+}
+.photo-band-line {
+  display: block; font-family: var(--f-display); font-style: italic;
+  font-size: clamp(1.5rem, 2.6vw, 2.3rem); line-height: 1.25; color: var(--ivoire);
+}
+@media (max-width: 640px) {
+  .photo-band img { object-position: center 42%; }
+}
 .lede {
   font-family: var(--f-display); font-weight: 300; font-size: clamp(1.7rem, 3.2vw, 2.9rem); line-height: 1.2; max-width: 26ch;
 }
@@ -1261,12 +1295,10 @@ em { font-style: italic; }
 .prose .photo { margin: 2.8rem 0; max-width: 460px; }
 
 /* Le cabinet: portrait beside the founder's words */
-.founder { display: grid; grid-template-columns: minmax(0, .7fr) minmax(0, 1.3fr); gap: clamp(2rem, 5vw, 5rem); align-items: center; }
-.founder .photo { max-width: 380px; }
-.founder .photo img { filter: brightness(.92); }
-@media (max-width: 860px) { .founder { grid-template-columns: 1fr; } .founder .photo { max-width: 320px; } }
+.founder { display: grid; grid-template-columns: minmax(0, .85fr) minmax(0, 1.15fr); gap: clamp(2rem, 5vw, 5rem); align-items: center; }
 .founder .manifesto { font-size: clamp(1.8rem, 3.2vw, 3.2rem); }
 .founder .signature { margin-left: 0; }
+@media (max-width: 860px) { .founder { grid-template-columns: 1fr; } .founder .cutout { max-width: 100%; } }
 
 /* Contact: who you will be speaking to */
 .contact-portrait { max-width: 260px; margin-bottom: 2.4rem; }
